@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageId>Bridge.Bus.AzureServiceBus</PackageId>
+		<AssemblyName>Bridge.Bus.AzureServiceBus</AssemblyName>
+		<RootNamespace>Bridge.Bus.AzureServiceBus</RootNamespace>
+		<Description>Bridge Bus for Azure Service Bus.</Description>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Azure.Messaging.ServiceBus" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\Core\Core.csproj" />
+	</ItemGroup>
+
+</Project>

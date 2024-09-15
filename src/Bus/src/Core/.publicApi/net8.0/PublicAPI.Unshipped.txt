@@ -1,0 +1,6 @@
+﻿#nullable enable
+Bridge.Bus.BusBridgeBuilder
+Bridge.Bus.BusBridgeBuilder.BusBridgeBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection! services) -> void
+Bridge.Bus.BusBridgeBuilder.Services.get -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBridgeBus(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services) -> Bridge.Bus.BusBridgeBuilder!

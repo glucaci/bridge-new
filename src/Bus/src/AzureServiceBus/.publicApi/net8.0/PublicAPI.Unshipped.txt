@@ -1,0 +1,3 @@
+﻿#nullable enable
+Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingAzureServiceBus(this Bridge.Bus.BusBridgeBuilder! builder, string! connectionString) -> Bridge.Bus.BusBridgeBuilder!
