@@ -1,0 +1,301 @@
+﻿#nullable enable
+Bridge.Workflow.ActivityController
+Bridge.Workflow.ActivityController.ActivityController(Bridge.Workflow.ISubscriptionRepository subscriptionRepository, Bridge.Workflow.IWorkflowController workflowController, Bridge.Workflow.IDateTimeProvider dateTimeProvider, Bridge.Workflow.IDistributedLockProvider lockProvider) -> void
+Bridge.Workflow.ActivityController.GetPendingActivity(string activityName, string workerId, System.TimeSpan? timeout = null) -> System.Threading.Tasks.Task<Bridge.Workflow.PendingActivity>
+Bridge.Workflow.ActivityController.ReleaseActivityToken(string token) -> System.Threading.Tasks.Task
+Bridge.Workflow.ActivityController.SubmitActivityFailure(string token, object result) -> System.Threading.Tasks.Task
+Bridge.Workflow.ActivityController.SubmitActivitySuccess(string token, object result) -> System.Threading.Tasks.Task
+Bridge.Workflow.CancellationProcessor
+Bridge.Workflow.CancellationProcessor.CancellationProcessor(Bridge.Workflow.IExecutionResultProcessor executionResultProcessor, Microsoft.Extensions.Logging.ILoggerFactory logFactory, Bridge.Workflow.IDateTimeProvider dateTimeProvider) -> void
+Bridge.Workflow.CancellationProcessor.ProcessCancellations(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition workflowDef, Bridge.Workflow.WorkflowExecutorResult executionResult) -> void
+Bridge.Workflow.CompensateHandler
+Bridge.Workflow.CompensateHandler.CompensateHandler(Bridge.Workflow.IExecutionPointerFactory pointerFactory, Bridge.Workflow.IDateTimeProvider datetimeProvider, Bridge.Workflow.WorkflowOptions options) -> void
+Bridge.Workflow.CompensateHandler.Handle(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition def, Bridge.Workflow.ExecutionPointer exceptionPointer, Bridge.Workflow.WorkflowStep exceptionStep, System.Exception exception, System.Collections.Generic.Queue<Bridge.Workflow.ExecutionPointer> bubbleUpQueue) -> void
+Bridge.Workflow.CompensateHandler.Type.get -> Bridge.Workflow.WorkflowErrorHandling
+Bridge.Workflow.DateTimeProvider
+Bridge.Workflow.DateTimeProvider.DateTimeProvider() -> void
+Bridge.Workflow.DateTimeProvider.Now.get -> System.DateTime
+Bridge.Workflow.DateTimeProvider.UtcNow.get -> System.DateTime
+Bridge.Workflow.DefaultWorkflowMiddlewareErrorHandler
+Bridge.Workflow.DefaultWorkflowMiddlewareErrorHandler.DefaultWorkflowMiddlewareErrorHandler(Microsoft.Extensions.Logging.ILogger<Bridge.Workflow.DefaultWorkflowMiddlewareErrorHandler> log) -> void
+Bridge.Workflow.DefaultWorkflowMiddlewareErrorHandler.HandleAsync(System.Exception ex) -> System.Threading.Tasks.Task
+Bridge.Workflow.ExecutionPointerFactory
+Bridge.Workflow.ExecutionPointerFactory.BuildChildPointer(Bridge.Workflow.WorkflowDefinition def, Bridge.Workflow.ExecutionPointer pointer, int childDefinitionId, object branch) -> Bridge.Workflow.ExecutionPointer
+Bridge.Workflow.ExecutionPointerFactory.BuildCompensationPointer(Bridge.Workflow.WorkflowDefinition def, Bridge.Workflow.ExecutionPointer pointer, Bridge.Workflow.ExecutionPointer exceptionPointer, int compensationStepId) -> Bridge.Workflow.ExecutionPointer
+Bridge.Workflow.ExecutionPointerFactory.BuildGenesisPointer(Bridge.Workflow.WorkflowDefinition def) -> Bridge.Workflow.ExecutionPointer
+Bridge.Workflow.ExecutionPointerFactory.BuildNextPointer(Bridge.Workflow.WorkflowDefinition def, Bridge.Workflow.ExecutionPointer pointer, Bridge.Workflow.IStepOutcome outcomeTarget) -> Bridge.Workflow.ExecutionPointer
+Bridge.Workflow.ExecutionPointerFactory.ExecutionPointerFactory() -> void
+Bridge.Workflow.ExecutionResultProcessor
+Bridge.Workflow.ExecutionResultProcessor.ExecutionResultProcessor(Bridge.Workflow.IExecutionPointerFactory pointerFactory, Bridge.Workflow.IDateTimeProvider datetimeProvider, Bridge.Workflow.ILifeCycleEventPublisher eventPublisher, System.Collections.Generic.IEnumerable<Bridge.Workflow.IWorkflowErrorHandler> errorHandlers, Bridge.Workflow.WorkflowOptions options, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory) -> void
+Bridge.Workflow.ExecutionResultProcessor.HandleStepException(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition def, Bridge.Workflow.ExecutionPointer pointer, Bridge.Workflow.WorkflowStep step, System.Exception exception) -> void
+Bridge.Workflow.ExecutionResultProcessor.ProcessExecutionResult(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition def, Bridge.Workflow.ExecutionPointer pointer, Bridge.Workflow.WorkflowStep step, Bridge.Workflow.ExecutionResult result, Bridge.Workflow.WorkflowExecutorResult workflowResult) -> void
+Bridge.Workflow.GreyList
+Bridge.Workflow.GreyList.Add(string id) -> void
+Bridge.Workflow.GreyList.Contains(string id) -> bool
+Bridge.Workflow.GreyList.Dispose() -> void
+Bridge.Workflow.GreyList.GreyList(Microsoft.Extensions.Logging.ILoggerFactory loggerFactory, Bridge.Workflow.IDateTimeProvider dateTimeProvider) -> void
+Bridge.Workflow.GreyList.Remove(string id) -> void
+Bridge.Workflow.IWorkflowHost
+Bridge.Workflow.IWorkflowHost.LockProvider.get -> Bridge.Workflow.IDistributedLockProvider
+Bridge.Workflow.IWorkflowHost.Logger.get -> Microsoft.Extensions.Logging.ILogger
+Bridge.Workflow.IWorkflowHost.OnLifeCycleEvent -> Bridge.Workflow.LifeCycleEventHandler
+Bridge.Workflow.IWorkflowHost.OnStepError -> Bridge.Workflow.StepErrorEventHandler
+Bridge.Workflow.IWorkflowHost.Options.get -> Bridge.Workflow.WorkflowOptions
+Bridge.Workflow.IWorkflowHost.PersistenceStore.get -> Bridge.Workflow.IPersistenceProvider
+Bridge.Workflow.IWorkflowHost.QueueProvider.get -> Bridge.Workflow.IQueueProvider
+Bridge.Workflow.IWorkflowHost.Registry.get -> Bridge.Workflow.IWorkflowRegistry
+Bridge.Workflow.IWorkflowHost.ReportStepError(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowStep step, System.Exception exception) -> void
+Bridge.Workflow.IWorkflowHost.Start() -> void
+Bridge.Workflow.IWorkflowHost.Stop() -> void
+Bridge.Workflow.LifeCycleEventHandler
+Bridge.Workflow.LifeCycleEventPublisher
+Bridge.Workflow.LifeCycleEventPublisher.Dispose() -> void
+Bridge.Workflow.LifeCycleEventPublisher.LifeCycleEventPublisher(Bridge.Workflow.ILifeCycleEventHub eventHub, Bridge.Workflow.WorkflowOptions workflowOptions, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory) -> void
+Bridge.Workflow.LifeCycleEventPublisher.PublishNotification(Bridge.Workflow.LifeCycleEvent evt) -> void
+Bridge.Workflow.LifeCycleEventPublisher.Start() -> void
+Bridge.Workflow.LifeCycleEventPublisher.Stop() -> void
+Bridge.Workflow.NullSearchIndex
+Bridge.Workflow.NullSearchIndex.IndexWorkflow(Bridge.Workflow.WorkflowInstance workflow) -> System.Threading.Tasks.Task
+Bridge.Workflow.NullSearchIndex.NullSearchIndex() -> void
+Bridge.Workflow.NullSearchIndex.Search(string terms, int skip, int take, params Bridge.Workflow.SearchFilter[] filters) -> System.Threading.Tasks.Task<Bridge.Workflow.Page<Bridge.Workflow.WorkflowSearchResult>>
+Bridge.Workflow.NullSearchIndex.Start() -> System.Threading.Tasks.Task
+Bridge.Workflow.NullSearchIndex.Stop() -> System.Threading.Tasks.Task
+Bridge.Workflow.ParallelStepBuilder<TData, TStepBody>
+Bridge.Workflow.ParallelStepBuilder<TData, TStepBody>.Do(System.Action<Bridge.Workflow.IWorkflowBuilder<TData>> builder) -> Bridge.Workflow.IParallelStepBuilder<TData, TStepBody>
+Bridge.Workflow.ParallelStepBuilder<TData, TStepBody>.Join() -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Sequence>
+Bridge.Workflow.ParallelStepBuilder<TData, TStepBody>.ParallelStepBuilder(Bridge.Workflow.IWorkflowBuilder<TData> workflowBuilder, Bridge.Workflow.IStepBuilder<TData, TStepBody> stepBuilder, Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Sequence> referenceBuilder) -> void
+Bridge.Workflow.ParallelStepBuilder<TData, TStepBody>.Step.get -> Bridge.Workflow.WorkflowStep<TStepBody>
+Bridge.Workflow.ParallelStepBuilder<TData, TStepBody>.Step.set -> void
+Bridge.Workflow.ParallelStepBuilder<TData, TStepBody>.WorkflowBuilder.get -> Bridge.Workflow.IWorkflowBuilder<TData>
+Bridge.Workflow.RetryHandler
+Bridge.Workflow.RetryHandler.Handle(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition def, Bridge.Workflow.ExecutionPointer pointer, Bridge.Workflow.WorkflowStep step, System.Exception exception, System.Collections.Generic.Queue<Bridge.Workflow.ExecutionPointer> bubbleUpQueue) -> void
+Bridge.Workflow.RetryHandler.RetryHandler(Bridge.Workflow.IDateTimeProvider datetimeProvider, Bridge.Workflow.WorkflowOptions options) -> void
+Bridge.Workflow.RetryHandler.Type.get -> Bridge.Workflow.WorkflowErrorHandling
+Bridge.Workflow.ReturnStepBuilder<TData, TStepBody, TParentStep>
+Bridge.Workflow.ReturnStepBuilder<TData, TStepBody, TParentStep>.Do(System.Action<Bridge.Workflow.IWorkflowBuilder<TData>> builder) -> Bridge.Workflow.IStepBuilder<TData, TParentStep>
+Bridge.Workflow.ReturnStepBuilder<TData, TStepBody, TParentStep>.ReturnStepBuilder(Bridge.Workflow.IWorkflowBuilder<TData> workflowBuilder, Bridge.Workflow.WorkflowStep<TStepBody> step, Bridge.Workflow.IStepBuilder<TData, TParentStep> referenceBuilder) -> void
+Bridge.Workflow.ReturnStepBuilder<TData, TStepBody, TParentStep>.Step.get -> Bridge.Workflow.WorkflowStep<TStepBody>
+Bridge.Workflow.ReturnStepBuilder<TData, TStepBody, TParentStep>.Step.set -> void
+Bridge.Workflow.ReturnStepBuilder<TData, TStepBody, TParentStep>.WorkflowBuilder.get -> Bridge.Workflow.IWorkflowBuilder<TData>
+Bridge.Workflow.ScopeProvider
+Bridge.Workflow.ScopeProvider.CreateScope(Bridge.Workflow.IStepExecutionContext context) -> Microsoft.Extensions.DependencyInjection.IServiceScope
+Bridge.Workflow.ScopeProvider.ScopeProvider(Microsoft.Extensions.DependencyInjection.IServiceScopeFactory serviceScopeFactory) -> void
+Bridge.Workflow.SingleNodeLockProvider
+Bridge.Workflow.SingleNodeLockProvider.AcquireLock(string Id, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>
+Bridge.Workflow.SingleNodeLockProvider.ReleaseLock(string Id) -> System.Threading.Tasks.Task
+Bridge.Workflow.SingleNodeLockProvider.SingleNodeLockProvider() -> void
+Bridge.Workflow.SingleNodeLockProvider.Start() -> System.Threading.Tasks.Task
+Bridge.Workflow.SingleNodeLockProvider.Stop() -> System.Threading.Tasks.Task
+Bridge.Workflow.StepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Activity(string activityName, System.Linq.Expressions.Expression<System.Func<TData, object>> parameters = null, System.Linq.Expressions.Expression<System.Func<TData, System.DateTime>> effectiveDate = null, System.Linq.Expressions.Expression<System.Func<TData, bool>> cancelCondition = null) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Activity>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Activity(System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, string>> activityName, System.Linq.Expressions.Expression<System.Func<TData, object>> parameters = null, System.Linq.Expressions.Expression<System.Func<TData, System.DateTime>> effectiveDate = null, System.Linq.Expressions.Expression<System.Func<TData, bool>> cancelCondition = null) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Activity>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Attach(string id) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Branch<TStep>(object outcomeValue, Bridge.Workflow.IStepBuilder<TData, TStep> branch) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Branch<TStep>(System.Linq.Expressions.Expression<System.Func<TData, object, bool>> outcomeExpression, Bridge.Workflow.IStepBuilder<TData, TStep> branch) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.CancelCondition(System.Linq.Expressions.Expression<System.Func<TData, bool>> cancelCondition, bool proceedAfterCancel = false) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.CompensateWith(System.Action<Bridge.Workflow.IStepExecutionContext> body) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.CompensateWith(System.Func<Bridge.Workflow.IStepExecutionContext, Bridge.Workflow.ExecutionResult> body) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.CompensateWith<TStep>(System.Action<Bridge.Workflow.IStepBuilder<TData, TStep>> stepSetup = null) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.CompensateWithSequence(System.Action<Bridge.Workflow.IWorkflowBuilder<TData>> builder) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Decide(System.Linq.Expressions.Expression<System.Func<TData, object>> expression) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Decide>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Delay(System.Linq.Expressions.Expression<System.Func<TData, System.TimeSpan>> period) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Delay>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Do(System.Action<Bridge.Workflow.IWorkflowBuilder<TData>> builder) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.End<TStep>(string name) -> Bridge.Workflow.IStepBuilder<TData, TStep>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.EndWorkflow() -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.ForEach(System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, System.Collections.IEnumerable>> collection, System.Linq.Expressions.Expression<System.Func<TData, bool>> runParallel) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Foreach, Bridge.Workflow.Foreach>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.ForEach(System.Linq.Expressions.Expression<System.Func<TData, System.Collections.IEnumerable>> collection) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Foreach, Bridge.Workflow.Foreach>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.ForEach(System.Linq.Expressions.Expression<System.Func<TData, System.Collections.IEnumerable>> collection, System.Linq.Expressions.Expression<System.Func<TData, bool>> runParallel) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Foreach, Bridge.Workflow.Foreach>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Id(string id) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.If(System.Linq.Expressions.Expression<System.Func<TData, bool>> condition) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.If, Bridge.Workflow.If>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.If(System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, bool>> condition) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.If, Bridge.Workflow.If>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Input(System.Action<TStepBody, TData, Bridge.Workflow.IStepExecutionContext> action) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Input(System.Action<TStepBody, TData> action) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Input<TInput>(System.Linq.Expressions.Expression<System.Func<TStepBody, TInput>> stepProperty, System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, TInput>> value) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Input<TInput>(System.Linq.Expressions.Expression<System.Func<TStepBody, TInput>> stepProperty, System.Linq.Expressions.Expression<System.Func<TData, TInput>> value) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Name(string name) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.OnError(Bridge.Workflow.WorkflowErrorHandling behavior, System.TimeSpan? retryInterval = null) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Output(System.Action<TStepBody, TData> action) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Output<TOutput>(System.Linq.Expressions.Expression<System.Func<TData, TOutput>> dataProperty, System.Linq.Expressions.Expression<System.Func<TStepBody, object>> value) -> Bridge.Workflow.IStepBuilder<TData, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Parallel() -> Bridge.Workflow.IParallelStepBuilder<TData, Bridge.Workflow.Sequence>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Recur(System.Linq.Expressions.Expression<System.Func<TData, System.TimeSpan>> interval, System.Linq.Expressions.Expression<System.Func<TData, bool>> until) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Recur, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Saga(System.Action<Bridge.Workflow.IWorkflowBuilder<TData>> builder) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Sequence>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Schedule(System.Linq.Expressions.Expression<System.Func<TData, System.TimeSpan>> time) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Schedule, TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Step.get -> Bridge.Workflow.WorkflowStep<TStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Step.set -> void
+Bridge.Workflow.StepBuilder<TData, TStepBody>.StepBuilder(Bridge.Workflow.IWorkflowBuilder<TData> workflowBuilder, Bridge.Workflow.WorkflowStep<TStepBody> step) -> void
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Then(System.Action<Bridge.Workflow.IStepExecutionContext> body) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.ActionStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Then(System.Func<Bridge.Workflow.IStepExecutionContext, Bridge.Workflow.ExecutionResult> body) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.InlineStepBody>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Then<TStep>(Bridge.Workflow.IStepBuilder<TData, TStep> newStep) -> Bridge.Workflow.IStepBuilder<TData, TStep>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.Then<TStep>(System.Action<Bridge.Workflow.IStepBuilder<TData, TStep>> stepSetup = null) -> Bridge.Workflow.IStepBuilder<TData, TStep>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.WaitFor(string eventName, System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, string>> eventKey, System.Linq.Expressions.Expression<System.Func<TData, System.DateTime>> effectiveDate = null, System.Linq.Expressions.Expression<System.Func<TData, bool>> cancelCondition = null) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.WaitFor>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.WaitFor(string eventName, System.Linq.Expressions.Expression<System.Func<TData, string>> eventKey, System.Linq.Expressions.Expression<System.Func<TData, System.DateTime>> effectiveDate = null, System.Linq.Expressions.Expression<System.Func<TData, bool>> cancelCondition = null) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.WaitFor>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.When(object outcomeValue, string label = null) -> Bridge.Workflow.IStepOutcomeBuilder<TData>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.When(System.Linq.Expressions.Expression<System.Func<TData, object>> outcomeValue, string label = null) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.When, Bridge.Workflow.OutcomeSwitch>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.While(System.Linq.Expressions.Expression<System.Func<TData, bool>> condition) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.While, Bridge.Workflow.While>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.While(System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, bool>> condition) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.While, Bridge.Workflow.While>
+Bridge.Workflow.StepBuilder<TData, TStepBody>.WorkflowBuilder.get -> Bridge.Workflow.IWorkflowBuilder<TData>
+Bridge.Workflow.StepErrorEventHandler
+Bridge.Workflow.StepExecutor
+Bridge.Workflow.StepExecutor.ExecuteStep(Bridge.Workflow.IStepExecutionContext context, Bridge.Workflow.IStepBody body) -> System.Threading.Tasks.Task<Bridge.Workflow.ExecutionResult>
+Bridge.Workflow.StepExecutor.StepExecutor(System.Collections.Generic.IEnumerable<Bridge.Workflow.IWorkflowStepMiddleware> stepMiddleware) -> void
+Bridge.Workflow.StepOutcomeBuilder<TData>
+Bridge.Workflow.StepOutcomeBuilder<TData>.EndWorkflow() -> void
+Bridge.Workflow.StepOutcomeBuilder<TData>.Outcome.get -> Bridge.Workflow.ValueOutcome
+Bridge.Workflow.StepOutcomeBuilder<TData>.StepOutcomeBuilder(Bridge.Workflow.IWorkflowBuilder<TData> workflowBuilder, Bridge.Workflow.ValueOutcome outcome) -> void
+Bridge.Workflow.StepOutcomeBuilder<TData>.Then(System.Func<Bridge.Workflow.IStepExecutionContext, Bridge.Workflow.ExecutionResult> body) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.InlineStepBody>
+Bridge.Workflow.StepOutcomeBuilder<TData>.Then<TStep>(Bridge.Workflow.IStepBuilder<TData, TStep> step) -> Bridge.Workflow.IStepBuilder<TData, TStep>
+Bridge.Workflow.StepOutcomeBuilder<TData>.Then<TStep>(System.Action<Bridge.Workflow.IStepBuilder<TData, TStep>> stepSetup = null) -> Bridge.Workflow.IStepBuilder<TData, TStep>
+Bridge.Workflow.StepOutcomeBuilder<TData>.WorkflowBuilder.get -> Bridge.Workflow.IWorkflowBuilder<TData>
+Bridge.Workflow.SuspendHandler
+Bridge.Workflow.SuspendHandler.Handle(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition def, Bridge.Workflow.ExecutionPointer pointer, Bridge.Workflow.WorkflowStep step, System.Exception exception, System.Collections.Generic.Queue<Bridge.Workflow.ExecutionPointer> bubbleUpQueue) -> void
+Bridge.Workflow.SuspendHandler.SuspendHandler(Bridge.Workflow.ILifeCycleEventPublisher eventPublisher, Bridge.Workflow.IDateTimeProvider datetimeProvider) -> void
+Bridge.Workflow.SuspendHandler.Type.get -> Bridge.Workflow.WorkflowErrorHandling
+Bridge.Workflow.SyncWorkflowRunner
+Bridge.Workflow.SyncWorkflowRunner.RunWorkflowSync<TData>(string workflowId, int version, TData data, string reference, System.Threading.CancellationToken token, bool persistSate = true) -> System.Threading.Tasks.Task<Bridge.Workflow.WorkflowInstance>
+Bridge.Workflow.SyncWorkflowRunner.RunWorkflowSync<TData>(string workflowId, int version, TData data, string reference, System.TimeSpan timeOut, bool persistSate = true) -> System.Threading.Tasks.Task<Bridge.Workflow.WorkflowInstance>
+Bridge.Workflow.SyncWorkflowRunner.SyncWorkflowRunner(Bridge.Workflow.IWorkflowHost host, Bridge.Workflow.IWorkflowExecutor executor, Bridge.Workflow.IDistributedLockProvider lockService, Bridge.Workflow.IWorkflowRegistry registry, Bridge.Workflow.IPersistenceProvider persistenceStore, Bridge.Workflow.IExecutionPointerFactory pointerFactory, Bridge.Workflow.IQueueProvider queueService, Bridge.Workflow.IDateTimeProvider dateTimeProvider) -> void
+Bridge.Workflow.TerminateHandler
+Bridge.Workflow.TerminateHandler.Handle(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition def, Bridge.Workflow.ExecutionPointer pointer, Bridge.Workflow.WorkflowStep step, System.Exception exception, System.Collections.Generic.Queue<Bridge.Workflow.ExecutionPointer> bubbleUpQueue) -> void
+Bridge.Workflow.TerminateHandler.TerminateHandler(Bridge.Workflow.ILifeCycleEventPublisher eventPublisher, Bridge.Workflow.IDateTimeProvider dateTimeProvider) -> void
+Bridge.Workflow.TerminateHandler.Type.get -> Bridge.Workflow.WorkflowErrorHandling
+Bridge.Workflow.WorkflowBuilder
+Bridge.Workflow.WorkflowBuilder.AddStep(Bridge.Workflow.WorkflowStep step) -> void
+Bridge.Workflow.WorkflowBuilder.AttachBranch(Bridge.Workflow.IWorkflowBuilder branch) -> void
+Bridge.Workflow.WorkflowBuilder.Branches.get -> System.Collections.Generic.ICollection<Bridge.Workflow.IWorkflowBuilder>
+Bridge.Workflow.WorkflowBuilder.Branches.set -> void
+Bridge.Workflow.WorkflowBuilder.DefaultErrorBehavior -> Bridge.Workflow.WorkflowErrorHandling
+Bridge.Workflow.WorkflowBuilder.DefaultErrorRetryInterval -> System.TimeSpan?
+Bridge.Workflow.WorkflowBuilder.LastStep.get -> int
+Bridge.Workflow.WorkflowBuilder.Steps.get -> System.Collections.Generic.List<Bridge.Workflow.WorkflowStep>
+Bridge.Workflow.WorkflowBuilder.Steps.set -> void
+Bridge.Workflow.WorkflowBuilder.UseData<T>() -> Bridge.Workflow.IWorkflowBuilder<T>
+Bridge.Workflow.WorkflowBuilder.WorkflowBuilder() -> void
+Bridge.Workflow.WorkflowBuilder<TData>
+Bridge.Workflow.WorkflowBuilder<TData>.Activity(string activityName, System.Linq.Expressions.Expression<System.Func<TData, object>> parameters = null, System.Linq.Expressions.Expression<System.Func<TData, System.DateTime>> effectiveDate = null, System.Linq.Expressions.Expression<System.Func<TData, bool>> cancelCondition = null) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Activity>
+Bridge.Workflow.WorkflowBuilder<TData>.Activity(System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, string>> activityName, System.Linq.Expressions.Expression<System.Func<TData, object>> parameters = null, System.Linq.Expressions.Expression<System.Func<TData, System.DateTime>> effectiveDate = null, System.Linq.Expressions.Expression<System.Func<TData, bool>> cancelCondition = null) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Activity>
+Bridge.Workflow.WorkflowBuilder<TData>.CreateBranch() -> Bridge.Workflow.IWorkflowBuilder<TData>
+Bridge.Workflow.WorkflowBuilder<TData>.Decide(System.Linq.Expressions.Expression<System.Func<TData, object>> expression) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Decide>
+Bridge.Workflow.WorkflowBuilder<TData>.Delay(System.Linq.Expressions.Expression<System.Func<TData, System.TimeSpan>> period) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Delay>
+Bridge.Workflow.WorkflowBuilder<TData>.ForEach(System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, System.Collections.IEnumerable>> collection, System.Linq.Expressions.Expression<System.Func<TData, bool>> runParallel) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Foreach, Bridge.Workflow.Foreach>
+Bridge.Workflow.WorkflowBuilder<TData>.ForEach(System.Linq.Expressions.Expression<System.Func<TData, System.Collections.IEnumerable>> collection) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Foreach, Bridge.Workflow.Foreach>
+Bridge.Workflow.WorkflowBuilder<TData>.ForEach(System.Linq.Expressions.Expression<System.Func<TData, System.Collections.IEnumerable>> collection, System.Linq.Expressions.Expression<System.Func<TData, bool>> runParallel) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Foreach, Bridge.Workflow.Foreach>
+Bridge.Workflow.WorkflowBuilder<TData>.GetUpstreamSteps(int id) -> System.Collections.Generic.IEnumerable<Bridge.Workflow.WorkflowStep>
+Bridge.Workflow.WorkflowBuilder<TData>.If(System.Linq.Expressions.Expression<System.Func<TData, bool>> condition) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.If, Bridge.Workflow.If>
+Bridge.Workflow.WorkflowBuilder<TData>.If(System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, bool>> condition) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.If, Bridge.Workflow.If>
+Bridge.Workflow.WorkflowBuilder<TData>.Parallel() -> Bridge.Workflow.IParallelStepBuilder<TData, Bridge.Workflow.Sequence>
+Bridge.Workflow.WorkflowBuilder<TData>.Recur(System.Linq.Expressions.Expression<System.Func<TData, System.TimeSpan>> interval, System.Linq.Expressions.Expression<System.Func<TData, bool>> until) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Recur, Bridge.Workflow.InlineStepBody>
+Bridge.Workflow.WorkflowBuilder<TData>.Saga(System.Action<Bridge.Workflow.IWorkflowBuilder<TData>> builder) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.Sequence>
+Bridge.Workflow.WorkflowBuilder<TData>.Schedule(System.Linq.Expressions.Expression<System.Func<TData, System.TimeSpan>> time) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.Schedule, Bridge.Workflow.InlineStepBody>
+Bridge.Workflow.WorkflowBuilder<TData>.StartWith(System.Action<Bridge.Workflow.IStepExecutionContext> body) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.ActionStepBody>
+Bridge.Workflow.WorkflowBuilder<TData>.StartWith(System.Func<Bridge.Workflow.IStepExecutionContext, Bridge.Workflow.ExecutionResult> body) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.InlineStepBody>
+Bridge.Workflow.WorkflowBuilder<TData>.StartWith<TStep>(System.Action<Bridge.Workflow.IStepBuilder<TData, TStep>> stepSetup = null) -> Bridge.Workflow.IStepBuilder<TData, TStep>
+Bridge.Workflow.WorkflowBuilder<TData>.Then(System.Action<Bridge.Workflow.IStepExecutionContext> body) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.ActionStepBody>
+Bridge.Workflow.WorkflowBuilder<TData>.Then(System.Func<Bridge.Workflow.IStepExecutionContext, Bridge.Workflow.ExecutionResult> body) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.InlineStepBody>
+Bridge.Workflow.WorkflowBuilder<TData>.Then<TStep>(Bridge.Workflow.IStepBuilder<TData, TStep> newStep) -> Bridge.Workflow.IStepBuilder<TData, TStep>
+Bridge.Workflow.WorkflowBuilder<TData>.Then<TStep>(System.Action<Bridge.Workflow.IStepBuilder<TData, TStep>> stepSetup = null) -> Bridge.Workflow.IStepBuilder<TData, TStep>
+Bridge.Workflow.WorkflowBuilder<TData>.UseDefaultErrorBehavior(Bridge.Workflow.WorkflowErrorHandling behavior, System.TimeSpan? retryInterval = null) -> Bridge.Workflow.IWorkflowBuilder<TData>
+Bridge.Workflow.WorkflowBuilder<TData>.WaitFor(string eventName, System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, string>> eventKey, System.Linq.Expressions.Expression<System.Func<TData, System.DateTime>> effectiveDate = null, System.Linq.Expressions.Expression<System.Func<TData, bool>> cancelCondition = null) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.WaitFor>
+Bridge.Workflow.WorkflowBuilder<TData>.WaitFor(string eventName, System.Linq.Expressions.Expression<System.Func<TData, string>> eventKey, System.Linq.Expressions.Expression<System.Func<TData, System.DateTime>> effectiveDate = null, System.Linq.Expressions.Expression<System.Func<TData, bool>> cancelCondition = null) -> Bridge.Workflow.IStepBuilder<TData, Bridge.Workflow.WaitFor>
+Bridge.Workflow.WorkflowBuilder<TData>.When(System.Linq.Expressions.Expression<System.Func<TData, object>> outcomeValue, string label = null) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.When, Bridge.Workflow.OutcomeSwitch>
+Bridge.Workflow.WorkflowBuilder<TData>.While(System.Linq.Expressions.Expression<System.Func<TData, bool>> condition) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.While, Bridge.Workflow.While>
+Bridge.Workflow.WorkflowBuilder<TData>.While(System.Linq.Expressions.Expression<System.Func<TData, Bridge.Workflow.IStepExecutionContext, bool>> condition) -> Bridge.Workflow.IContainerStepBuilder<TData, Bridge.Workflow.While, Bridge.Workflow.While>
+Bridge.Workflow.WorkflowBuilder<TData>.WorkflowBuilder(System.Collections.Generic.IEnumerable<Bridge.Workflow.WorkflowStep> steps) -> void
+Bridge.Workflow.WorkflowController
+Bridge.Workflow.WorkflowController.PublishEvent(string eventName, string eventKey, object eventData, System.DateTime? effectiveDate = null) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowController.RegisterWorkflow<TWorkflow, TData>() -> void
+Bridge.Workflow.WorkflowController.RegisterWorkflow<TWorkflow>() -> void
+Bridge.Workflow.WorkflowController.ResumeWorkflow(string workflowId) -> System.Threading.Tasks.Task<bool>
+Bridge.Workflow.WorkflowController.StartWorkflow(string workflowId, int? version, object data = null, string reference = null) -> System.Threading.Tasks.Task<string>
+Bridge.Workflow.WorkflowController.StartWorkflow(string workflowId, object data = null, string reference = null) -> System.Threading.Tasks.Task<string>
+Bridge.Workflow.WorkflowController.StartWorkflow<TData>(string workflowId, int? version, TData data = null, string reference = null) -> System.Threading.Tasks.Task<string>
+Bridge.Workflow.WorkflowController.StartWorkflow<TData>(string workflowId, TData data = null, string reference = null) -> System.Threading.Tasks.Task<string>
+Bridge.Workflow.WorkflowController.SuspendWorkflow(string workflowId) -> System.Threading.Tasks.Task<bool>
+Bridge.Workflow.WorkflowController.TerminateWorkflow(string workflowId) -> System.Threading.Tasks.Task<bool>
+Bridge.Workflow.WorkflowController.WorkflowController(Bridge.Workflow.IPersistenceProvider persistenceStore, Bridge.Workflow.IDistributedLockProvider lockProvider, Bridge.Workflow.IWorkflowRegistry registry, Bridge.Workflow.IQueueProvider queueProvider, Bridge.Workflow.IExecutionPointerFactory pointerFactory, Bridge.Workflow.ILifeCycleEventHub eventHub, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory, System.IServiceProvider serviceProvider, Bridge.Workflow.IDateTimeProvider dateTimeProvider) -> void
+Bridge.Workflow.WorkflowExecutor
+Bridge.Workflow.WorkflowExecutor.Execute(Bridge.Workflow.WorkflowInstance workflow, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Bridge.Workflow.WorkflowExecutorResult>
+Bridge.Workflow.WorkflowExecutor.WorkflowExecutor(Bridge.Workflow.IWorkflowRegistry registry, System.IServiceProvider serviceProvider, Bridge.Workflow.IScopeProvider scopeProvider, Bridge.Workflow.IDateTimeProvider datetimeProvider, Bridge.Workflow.IExecutionResultProcessor executionResultProcessor, Bridge.Workflow.ILifeCycleEventPublisher publisher, Bridge.Workflow.ICancellationProcessor cancellationProcessor, Bridge.Workflow.WorkflowOptions options, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory) -> void
+Bridge.Workflow.WorkflowHost
+Bridge.Workflow.WorkflowHost.Dispose() -> void
+Bridge.Workflow.WorkflowHost.GetPendingActivity(string activityName, string workerId, System.TimeSpan? timeout = null) -> System.Threading.Tasks.Task<Bridge.Workflow.PendingActivity>
+Bridge.Workflow.WorkflowHost.HandleLifeCycleEvent(Bridge.Workflow.LifeCycleEvent evt) -> void
+Bridge.Workflow.WorkflowHost.LockProvider.get -> Bridge.Workflow.IDistributedLockProvider
+Bridge.Workflow.WorkflowHost.Logger.get -> Microsoft.Extensions.Logging.ILogger
+Bridge.Workflow.WorkflowHost.OnLifeCycleEvent -> Bridge.Workflow.LifeCycleEventHandler
+Bridge.Workflow.WorkflowHost.OnStepError -> Bridge.Workflow.StepErrorEventHandler
+Bridge.Workflow.WorkflowHost.Options.get -> Bridge.Workflow.WorkflowOptions
+Bridge.Workflow.WorkflowHost.PersistenceStore.get -> Bridge.Workflow.IPersistenceProvider
+Bridge.Workflow.WorkflowHost.PublishEvent(string eventName, string eventKey, object eventData, System.DateTime? effectiveDate = null) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowHost.QueueProvider.get -> Bridge.Workflow.IQueueProvider
+Bridge.Workflow.WorkflowHost.RegisterWorkflow<TWorkflow, TData>() -> void
+Bridge.Workflow.WorkflowHost.RegisterWorkflow<TWorkflow>() -> void
+Bridge.Workflow.WorkflowHost.Registry.get -> Bridge.Workflow.IWorkflowRegistry
+Bridge.Workflow.WorkflowHost.ReleaseActivityToken(string token) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowHost.ReportStepError(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowStep step, System.Exception exception) -> void
+Bridge.Workflow.WorkflowHost.ResumeWorkflow(string workflowId) -> System.Threading.Tasks.Task<bool>
+Bridge.Workflow.WorkflowHost.Start() -> void
+Bridge.Workflow.WorkflowHost.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowHost.StartWorkflow(string workflowId, int? version, object data = null, string reference = null) -> System.Threading.Tasks.Task<string>
+Bridge.Workflow.WorkflowHost.StartWorkflow(string workflowId, object data = null, string reference = null) -> System.Threading.Tasks.Task<string>
+Bridge.Workflow.WorkflowHost.StartWorkflow<TData>(string workflowId, int? version, TData data = null, string reference = null) -> System.Threading.Tasks.Task<string>
+Bridge.Workflow.WorkflowHost.StartWorkflow<TData>(string workflowId, TData data = null, string reference = null) -> System.Threading.Tasks.Task<string>
+Bridge.Workflow.WorkflowHost.Stop() -> void
+Bridge.Workflow.WorkflowHost.StopAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowHost.SubmitActivityFailure(string token, object result) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowHost.SubmitActivitySuccess(string token, object result) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowHost.SuspendWorkflow(string workflowId) -> System.Threading.Tasks.Task<bool>
+Bridge.Workflow.WorkflowHost.TerminateWorkflow(string workflowId) -> System.Threading.Tasks.Task<bool>
+Bridge.Workflow.WorkflowHost.WorkflowHost(Bridge.Workflow.IPersistenceProvider persistenceStore, Bridge.Workflow.IQueueProvider queueProvider, Bridge.Workflow.WorkflowOptions options, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory, System.IServiceProvider serviceProvider, Bridge.Workflow.IWorkflowRegistry registry, Bridge.Workflow.IDistributedLockProvider lockProvider, System.Collections.Generic.IEnumerable<Bridge.Workflow.IBackgroundTask> backgroundTasks, Bridge.Workflow.IWorkflowController workflowController, Bridge.Workflow.ILifeCycleEventHub lifeCycleEventHub, Bridge.Workflow.ISearchIndex searchIndex, Bridge.Workflow.IActivityController activityController) -> void
+Bridge.Workflow.WorkflowHost._shutdown -> bool
+Bridge.Workflow.WorkflowMiddlewareRunner
+Bridge.Workflow.WorkflowMiddlewareRunner.RunExecuteMiddleware(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition def) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowMiddlewareRunner.RunPostMiddleware(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition def) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowMiddlewareRunner.RunPreMiddleware(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowDefinition def) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowMiddlewareRunner.RunWorkflowMiddlewareWithErrorHandling(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowMiddlewarePhase phase, System.Type middlewareErrorType) -> System.Threading.Tasks.Task
+Bridge.Workflow.WorkflowMiddlewareRunner.WorkflowMiddlewareRunner(System.Collections.Generic.IEnumerable<Bridge.Workflow.IWorkflowMiddleware> middleware, System.IServiceProvider serviceProvider) -> void
+Bridge.Workflow.WorkflowOptions
+Bridge.Workflow.WorkflowOptions.EnableEvents.get -> bool
+Bridge.Workflow.WorkflowOptions.EnableEvents.set -> void
+Bridge.Workflow.WorkflowOptions.EnableIndexes.get -> bool
+Bridge.Workflow.WorkflowOptions.EnableIndexes.set -> void
+Bridge.Workflow.WorkflowOptions.EnableLifeCycleEventsPublisher.get -> bool
+Bridge.Workflow.WorkflowOptions.EnableLifeCycleEventsPublisher.set -> void
+Bridge.Workflow.WorkflowOptions.EnablePolling.get -> bool
+Bridge.Workflow.WorkflowOptions.EnablePolling.set -> void
+Bridge.Workflow.WorkflowOptions.EnableWorkflows.get -> bool
+Bridge.Workflow.WorkflowOptions.EnableWorkflows.set -> void
+Bridge.Workflow.WorkflowOptions.Services.get -> Microsoft.Extensions.DependencyInjection.IServiceCollection
+Bridge.Workflow.WorkflowOptions.UseDistributedLockManager(System.Func<System.IServiceProvider, Bridge.Workflow.IDistributedLockProvider> factory) -> void
+Bridge.Workflow.WorkflowOptions.UseErrorRetryInterval(System.TimeSpan interval) -> void
+Bridge.Workflow.WorkflowOptions.UseEventHub(System.Func<System.IServiceProvider, Bridge.Workflow.ILifeCycleEventHub> factory) -> void
+Bridge.Workflow.WorkflowOptions.UseIdleTime(System.TimeSpan interval) -> void
+Bridge.Workflow.WorkflowOptions.UseMaxConcurrentWorkflows(int maxConcurrentWorkflows) -> void
+Bridge.Workflow.WorkflowOptions.UsePersistence(System.Func<System.IServiceProvider, Bridge.Workflow.IPersistenceProvider> factory) -> void
+Bridge.Workflow.WorkflowOptions.UsePollInterval(System.TimeSpan interval) -> void
+Bridge.Workflow.WorkflowOptions.UseQueueProvider(System.Func<System.IServiceProvider, Bridge.Workflow.IQueueProvider> factory) -> void
+Bridge.Workflow.WorkflowOptions.UseSearchIndex(System.Func<System.IServiceProvider, Bridge.Workflow.ISearchIndex> factory) -> void
+Bridge.Workflow.WorkflowOptions.WorkflowOptions(Microsoft.Extensions.DependencyInjection.IServiceCollection services) -> void
+Bridge.Workflow.WorkflowRegistry
+Bridge.Workflow.WorkflowRegistry.DeregisterWorkflow(string workflowId, int version) -> void
+Bridge.Workflow.WorkflowRegistry.GetAllDefinitions() -> System.Collections.Generic.IEnumerable<Bridge.Workflow.WorkflowDefinition>
+Bridge.Workflow.WorkflowRegistry.GetDefinition(string workflowId, int? version = null) -> Bridge.Workflow.WorkflowDefinition
+Bridge.Workflow.WorkflowRegistry.IsRegistered(string workflowId, int version) -> bool
+Bridge.Workflow.WorkflowRegistry.RegisterWorkflow(Bridge.Workflow.IWorkflow workflow) -> void
+Bridge.Workflow.WorkflowRegistry.RegisterWorkflow(Bridge.Workflow.WorkflowDefinition definition) -> void
+Bridge.Workflow.WorkflowRegistry.RegisterWorkflow<TData>(Bridge.Workflow.IWorkflow<TData> workflow) -> void
+Bridge.Workflow.WorkflowRegistry.WorkflowRegistry(System.IServiceProvider serviceProvider) -> void
+Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+override Bridge.Workflow.WorkflowBuilder<TData>.Build(string id, int version) -> Bridge.Workflow.WorkflowDefinition
+readonly Bridge.Workflow.CancellationProcessor._logger -> Microsoft.Extensions.Logging.ILogger
+readonly Bridge.Workflow.WorkflowExecutor._datetimeProvider -> Bridge.Workflow.IDateTimeProvider
+readonly Bridge.Workflow.WorkflowExecutor._logger -> Microsoft.Extensions.Logging.ILogger
+readonly Bridge.Workflow.WorkflowExecutor._registry -> Bridge.Workflow.IWorkflowRegistry
+readonly Bridge.Workflow.WorkflowExecutor._scopeProvider -> Bridge.Workflow.IScopeProvider
+readonly Bridge.Workflow.WorkflowExecutor._serviceProvider -> System.IServiceProvider
+readonly Bridge.Workflow.WorkflowHost._serviceProvider -> System.IServiceProvider
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddWorkflow(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Bridge.Workflow.WorkflowOptions> setupAction = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddWorkflowMiddleware<TMiddleware>(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Func<System.IServiceProvider, TMiddleware> factory = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddWorkflowStepMiddleware<TMiddleware>(this Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Func<System.IServiceProvider, TMiddleware> factory = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection
+virtual Bridge.Workflow.LifeCycleEventHandler.Invoke(Bridge.Workflow.LifeCycleEvent evt) -> void
+virtual Bridge.Workflow.StepErrorEventHandler.Invoke(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowStep step, System.Exception exception) -> void
+virtual Bridge.Workflow.WorkflowBuilder.Build(string id, int version) -> Bridge.Workflow.WorkflowDefinition

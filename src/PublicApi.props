@@ -1,0 +1,14 @@
+<Project>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+
+    <AdditionalFiles Include=".publicApi\$(TargetFramework)\PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include=".publicApi\$(TargetFramework)\PublicAPI.Unshipped.txt" />
+    <None Include=".publicApi\*\PublicAPI.Shipped.txt" />
+    <None Include=".publicApi\*\PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+
+</Project>

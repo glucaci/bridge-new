@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageId>Bridge.Bus.AzureQueueStorage</PackageId>
+		<AssemblyName>Bridge.Bus.AzureQueueStorage</AssemblyName>
+		<RootNamespace>Bridge.Bus.AzureQueueStorage</RootNamespace>
+		<Description>Bridge Bus Azure Queue Storage.</Description>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+    	<PackageReference Include="WindowsAzure.Storage" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Workflow\src\Core\Core.csproj" />
+	</ItemGroup>
+
+</Project>

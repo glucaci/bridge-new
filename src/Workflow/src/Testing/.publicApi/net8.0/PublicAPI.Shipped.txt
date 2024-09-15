@@ -1,0 +1,26 @@
+﻿#nullable enable
+Bridge.Workflow.Testing.StepError
+Bridge.Workflow.Testing.StepError.Exception.get -> System.Exception
+Bridge.Workflow.Testing.StepError.Exception.set -> void
+Bridge.Workflow.Testing.StepError.Step.get -> Bridge.Workflow.WorkflowStep
+Bridge.Workflow.Testing.StepError.Step.set -> void
+Bridge.Workflow.Testing.StepError.StepError() -> void
+Bridge.Workflow.Testing.StepError.Workflow.get -> Bridge.Workflow.WorkflowInstance
+Bridge.Workflow.Testing.StepError.Workflow.set -> void
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.Dispose() -> void
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.GetActiveSubscriptons(string eventName, string eventKey) -> System.Collections.Generic.IEnumerable<Bridge.Workflow.EventSubscription>
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.GetData(string workflowId) -> TData
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.GetStatus(string workflowId) -> Bridge.Workflow.WorkflowStatus
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.Host -> Bridge.Workflow.IWorkflowHost
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.Host_OnStepError(Bridge.Workflow.WorkflowInstance workflow, Bridge.Workflow.WorkflowStep step, System.Exception exception) -> void
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.PersistenceProvider -> Bridge.Workflow.IPersistenceProvider
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.StartWorkflow(TData data) -> string
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.StartWorkflowAsync(TData data) -> System.Threading.Tasks.Task<string>
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.UnhandledStepErrors -> System.Collections.Generic.List<Bridge.Workflow.Testing.StepError>
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.WaitForEventSubscription(string eventName, string eventKey, System.TimeSpan timeOut) -> void
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.WaitForWorkflowToComplete(string workflowId, System.TimeSpan timeOut) -> void
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.WaitForWorkflowToCompleteAsync(string workflowId, System.TimeSpan timeOut) -> System.Threading.Tasks.Task<Bridge.Workflow.WorkflowStatus>
+Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.WorkflowTest() -> void
+virtual Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection services) -> void
+virtual Bridge.Workflow.Testing.WorkflowTest<TWorkflow, TData>.Setup() -> void

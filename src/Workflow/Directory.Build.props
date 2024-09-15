@@ -1,0 +1,9 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)..\'))" />
+
+  <PropertyGroup>
+    <Product>$(Product) Workflow</Product>
+    <PackageTags>$(PackageTags) Workflow</PackageTags>
+  </PropertyGroup>
+
+</Project>
