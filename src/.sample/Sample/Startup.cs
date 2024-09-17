@@ -1,3 +1,5 @@
+using Bridge.Bus;
+
 namespace Bridge.Sample;
 
 public class Startup
@@ -17,7 +19,11 @@ public class Startup
 
         services
             .AddBridgeBus()
-            .UsingAzureServiceBus(options.BusConnectionString);
+            .AddConsumer<DocumentCreatedHandler, DocumentCreated>(options.QueueName)
+            .UsingAzureServiceBus(o =>
+            {
+                o.ConnectionString = options.BusConnectionString;
+            });
     }
 
     public void Configure(IApplicationBuilder app)
@@ -31,3 +37,13 @@ public class Startup
 }
 
 public record BridgeOptions(string BusConnectionString, string QueueName);
+
+public record DocumentCreated(string Id);
+
+public class DocumentCreatedHandler : IConsumer<DocumentCreated>
+{
+    public ValueTask Handle(DocumentCreated message, CancellationToken cancellationToken)
+    {
+        return ValueTask.CompletedTask;
+    }
+}

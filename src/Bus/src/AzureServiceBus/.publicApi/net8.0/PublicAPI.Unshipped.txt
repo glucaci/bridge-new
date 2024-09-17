@@ -1,3 +1,14 @@
 ﻿#nullable enable
+Microsoft.Extensions.DependencyInjection.AuthenticationType
+Microsoft.Extensions.DependencyInjection.AuthenticationType.AccessKeys = 0 -> Microsoft.Extensions.DependencyInjection.AuthenticationType
+Microsoft.Extensions.DependencyInjection.AuthenticationType.EntraId = 1 -> Microsoft.Extensions.DependencyInjection.AuthenticationType
+Microsoft.Extensions.DependencyInjection.AzureServiceBusBrokerOptions
+Microsoft.Extensions.DependencyInjection.AzureServiceBusBrokerOptions.AuthenticationType.get -> Microsoft.Extensions.DependencyInjection.AuthenticationType
+Microsoft.Extensions.DependencyInjection.AzureServiceBusBrokerOptions.AuthenticationType.set -> void
+Microsoft.Extensions.DependencyInjection.AzureServiceBusBrokerOptions.AzureServiceBusBrokerOptions() -> void
+Microsoft.Extensions.DependencyInjection.AzureServiceBusBrokerOptions.ConnectionString.get -> string?
+Microsoft.Extensions.DependencyInjection.AzureServiceBusBrokerOptions.ConnectionString.set -> void
+Microsoft.Extensions.DependencyInjection.AzureServiceBusBrokerOptions.FullyQualifiedNamespace.get -> string?
+Microsoft.Extensions.DependencyInjection.AzureServiceBusBrokerOptions.FullyQualifiedNamespace.set -> void
 Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingAzureServiceBus(this Bridge.Bus.BusBridgeBuilder! builder, string! connectionString) -> Bridge.Bus.BusBridgeBuilder!
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingAzureServiceBus(this Bridge.Bus.BusBridgeBuilder! builder, System.Action<Microsoft.Extensions.DependencyInjection.AzureServiceBusBrokerOptions!>? configure = null) -> Bridge.Bus.BusBridgeBuilder!
