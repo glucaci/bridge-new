@@ -54,6 +54,9 @@ public static class ServiceCollectionExtensions
                     .WithName(messageHandlerOption.QueueName);
             }
         });
+
+        builder.Services.AddSingleton<IMessageBus, AzureServiceBusSender>();
+
         return builder;
     }
 
