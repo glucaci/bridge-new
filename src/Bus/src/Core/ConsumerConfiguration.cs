@@ -8,14 +8,14 @@ internal delegate ValueTask HandleMessageDelegate(
     CloudEvent cloudEvent, 
     CancellationToken cancellationToken);
 
-internal class Consumer
+internal class ConsumerConfiguration
 {
     public string QueueName { get; }
     public Type HandlerType { get; }
     public Type MessageType { get; }
     public HandleMessageDelegate HandleMessage { get; }
 
-    private Consumer(
+    private ConsumerConfiguration(
         string queueName,
         Type handlerType,
         Type messageType,
@@ -32,7 +32,7 @@ internal class Consumer
         return cloudEvent.Data!.ToObjectFromJson<T>();
     }
 
-    public static Consumer Create<TConsumer, TMessage>(string queueName)
+    public static ConsumerConfiguration Create<TConsumer, TMessage>(string queueName)
         where TConsumer : IConsumer<TMessage>
     {
         HandleMessageDelegate handleMessage =
@@ -43,6 +43,6 @@ internal class Consumer
                 await handler.Handle(message, cancellationToken);
             };
 
-        return new Consumer(queueName, typeof(TConsumer), typeof(TMessage), handleMessage);
+        return new ConsumerConfiguration(queueName, typeof(TConsumer), typeof(TMessage), handleMessage);
     }
 }

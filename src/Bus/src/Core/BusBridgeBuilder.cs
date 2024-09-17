@@ -1,18 +1,17 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Bridge.Bus;
 
 public class BusBridgeBuilder
 {
-    private readonly List<Consumer> _consumers = new();
+    private readonly List<ConsumerConfiguration> _consumers = new();
 
     public BusBridgeBuilder(IServiceCollection services)
     {
         Services = services;
     }
     
-    internal IReadOnlyList<Consumer> Consumers => _consumers;
+    internal IReadOnlyList<ConsumerConfiguration> Consumers => _consumers;
 
     public IServiceCollection Services { get; }
 
@@ -20,20 +19,8 @@ public class BusBridgeBuilder
         where TConsumer : class, IConsumer<TMessage>
     {
         Services.AddSingleton<TConsumer>();
-        var consumer = Consumer.Create<TConsumer, TMessage>(queueName);
-        _consumers.Add(consumer);
-        Services.AddSingleton(consumer);
+        _consumers.Add(ConsumerConfiguration.Create<TConsumer, TMessage>(queueName));
 
         return this;
     }
-
-    public void RegisterBrokerMessageHandler<T>(Func<IServiceProvider, T> brokerMessageHandlerFactory)
-        where T : class, IBrokerMessageHandler
-    {
-        Services.AddHostedService(brokerMessageHandlerFactory);
-    }
-}
-
-public interface IBrokerMessageHandler : IHostedService
-{
 }

@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.Extensions.DependencyInjection;
 
-public sealed class AzureServiceBusBrokerOptions
+public sealed class AzureServiceBusOptions
 {
     public AuthenticationType AuthenticationType { get; set; } = AuthenticationType.AccessKeys;
     public string? ConnectionString { get; set; }

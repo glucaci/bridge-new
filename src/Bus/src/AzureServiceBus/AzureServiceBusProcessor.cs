@@ -2,23 +2,24 @@
 using Azure.Messaging.ServiceBus;
 using Bridge.Bus;
 using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-internal class AzureServiceBusMessageHandler : IBrokerMessageHandler
+internal class AzureServiceBusProcessor : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly Consumer _consumer;
-    private readonly ILogger<AzureServiceBusMessageHandler> _logger;
+    private readonly ConsumerConfiguration _consumerConfiguration;
+    private readonly ILogger<AzureServiceBusProcessor> _logger;
 
-    internal AzureServiceBusMessageHandler(
+    internal AzureServiceBusProcessor(
         IServiceProvider serviceProvider,
-        Consumer consumer)
+        ConsumerConfiguration consumerConfiguration)
     {
         _serviceProvider = serviceProvider;
-        _consumer = consumer;
-        _logger = serviceProvider.GetRequiredService<ILogger<AzureServiceBusMessageHandler>>();
+        _consumerConfiguration = consumerConfiguration;
+        _logger = serviceProvider.GetRequiredService<ILogger<AzureServiceBusProcessor>>();
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -26,7 +27,7 @@ internal class AzureServiceBusMessageHandler : IBrokerMessageHandler
         var serviceBusClientFactory = _serviceProvider
             .GetRequiredService<IAzureClientFactory<ServiceBusProcessor>>();
         var client = serviceBusClientFactory
-            .CreateClient(_consumer.QueueName);
+            .CreateClient(_consumerConfiguration.QueueName);
 
         client.ProcessMessageAsync += HandleMessage;
         client.ProcessErrorAsync += HandleError;
@@ -49,7 +50,7 @@ internal class AzureServiceBusMessageHandler : IBrokerMessageHandler
         }
         else
         {
-            await _consumer.HandleMessage(_serviceProvider, cloudEvent, arg.CancellationToken);
+            await _consumerConfiguration.HandleMessage(_serviceProvider, cloudEvent, arg.CancellationToken);
             await arg.CompleteMessageAsync(arg.Message);
         }
     }
@@ -59,7 +60,7 @@ internal class AzureServiceBusMessageHandler : IBrokerMessageHandler
         var serviceBusClientFactory = _serviceProvider
             .GetRequiredService<IAzureClientFactory<ServiceBusProcessor>>();
         var client = serviceBusClientFactory
-            .CreateClient(_consumer.QueueName);
+            .CreateClient(_consumerConfiguration.QueueName);
 
         client.ProcessMessageAsync -= HandleMessage;
         client.ProcessErrorAsync -= HandleError;

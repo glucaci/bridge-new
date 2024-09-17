@@ -9,20 +9,21 @@ public static class ServiceCollectionExtensions
 {
     public static BusBridgeBuilder UsingAzureServiceBus(
         this BusBridgeBuilder builder,
-        Action<AzureServiceBusBrokerOptions>? configure = default)
+        Action<AzureServiceBusOptions>? configureOptions = default,
+        Action<ServiceBusClientOptions>? configureClient = default)
     {
         if (builder == null)
         {
             throw new ArgumentNullException(nameof(builder));
         }
 
-        var options = new AzureServiceBusBrokerOptions();
-        configure?.Invoke(options);
+        var options = new AzureServiceBusOptions();
+        configureOptions?.Invoke(options);
 
         foreach (var messageHandlerOption in builder.Consumers)
         {
-            builder.RegisterBrokerMessageHandler(sp => 
-                new AzureServiceBusMessageHandler(sp, messageHandlerOption));
+            builder.Services.AddHostedService(sp => 
+                new AzureServiceBusProcessor(sp, messageHandlerOption));
         }
 
         builder.Services.AddAzureClients(azureClientFactoryBuilder =>
@@ -31,13 +32,13 @@ public static class ServiceCollectionExtensions
             {
                 azureClientFactoryBuilder
                     .AddServiceBusClient(options.ConnectionString)
-                    .ConfigureOptions(ConfigureServiceBusClientOptions);
+                    .ConfigureOptions(o => ConfigureServiceBusClientOptions(o, configureClient));
             }
             else
             {
                 azureClientFactoryBuilder
                     .AddServiceBusClientWithNamespace(options.FullyQualifiedNamespace)
-                    .ConfigureOptions(ConfigureServiceBusClientOptions);
+                    .ConfigureOptions(o => ConfigureServiceBusClientOptions(o, configureClient));
 
                 azureClientFactoryBuilder.UseCredential(new ManagedIdentityCredential());
             }
@@ -56,7 +57,9 @@ public static class ServiceCollectionExtensions
         return builder;
     }
 
-    private static void ConfigureServiceBusClientOptions(ServiceBusClientOptions options)
+    private static void ConfigureServiceBusClientOptions(
+        ServiceBusClientOptions options,
+        Action<ServiceBusClientOptions>? configureClient)
     {
         options.TransportType = ServiceBusTransportType.AmqpWebSockets;
         options.EnableCrossEntityTransactions = true;
@@ -67,5 +70,7 @@ public static class ServiceCollectionExtensions
             Delay = TimeSpan.FromSeconds(1),
             MaxDelay = TimeSpan.FromSeconds(10)
         };
+
+        configureClient?.Invoke(options);
     }
 }
