@@ -1,6 +1,6 @@
 ﻿using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace Bridge.Bus.AzureQueueStorage;
+namespace Bridge.Workflow.Bus.AzureQueueStorage;
 
 class ControlledLock
 {

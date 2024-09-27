@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Bus\src\InMemory\InMemory.csproj" />
-    <ProjectReference Include="..\..\..\Storage\src\InMemory\InMemory.csproj" />
+    <ProjectReference Include="..\Bus.InMemory\Bus.InMemory.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Storage.InMemory\Storage.InMemory.csproj" />
   </ItemGroup>
 
 </Project>

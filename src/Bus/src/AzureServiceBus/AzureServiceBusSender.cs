@@ -1,9 +1,8 @@
 ﻿using Azure.Messaging;
 using Azure.Messaging.ServiceBus;
-using Bridge.Bus;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace Bridge.Bus.AzureServiceBus;
 
 internal class AzureServiceBusSender : IMessageBus
 {

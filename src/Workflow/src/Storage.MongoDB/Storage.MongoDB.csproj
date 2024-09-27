@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageId>Bridge.Workflow.Storage.MongoDB</PackageId>
+		<AssemblyName>Bridge.Workflow.Storage.MongoDB</AssemblyName>
+		<RootNamespace>Bridge.Workflow.Storage.MongoDB</RootNamespace>
+		<Description>Bridge Workflow MongoDB Storage.</Description>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MongoDB.Driver" />
+    	<PackageReference Include="Newtonsoft.Json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Bus.InMemory\Bus.InMemory.csproj" />
+	  <ProjectReference Include="..\Core\Core.csproj" />
+	</ItemGroup>
+
+</Project>

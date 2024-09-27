@@ -1,4 +1,10 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', '$(MSBuildThisFileDirectory)..\'))" />
 
+  <ItemGroup>
+    <PackageVersion Include="WindowsAzure.Storage" Version="9.3.3" />
+    <PackageVersion Include="MongoDB.Driver" Version="2.19.0" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
 </Project>

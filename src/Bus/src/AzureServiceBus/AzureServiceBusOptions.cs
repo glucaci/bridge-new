@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Extensions.DependencyInjection;
+﻿namespace Bridge.Bus.AzureServiceBus;
 
 public sealed class AzureServiceBusOptions
 {

@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>Bridge.Storage.MongoDB.Tests</AssemblyName>
-    <RootNamespace>Bridge.Storage.MongoDB.Tests</RootNamespace>
+    <AssemblyName>Bridge.Workflow.Storage.MongoDB.Tests</AssemblyName>
+    <RootNamespace>Bridge.Workflow.Storage.MongoDB.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Workflow\test\Core.Tests\Core.Tests.csproj" />
+    <ProjectReference Include="..\Core.Tests\Core.Tests.csproj" />
     <ProjectReference Include="..\..\src\MongoDB\MongoDB.csproj" />
   </ItemGroup>
 

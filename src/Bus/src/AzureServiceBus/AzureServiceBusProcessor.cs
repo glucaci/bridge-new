@@ -1,11 +1,11 @@
 ﻿using Azure.Messaging;
 using Azure.Messaging.ServiceBus;
-using Bridge.Bus;
 using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace Bridge.Bus.AzureServiceBus;
 
 internal class AzureServiceBusProcessor : IHostedService
 {

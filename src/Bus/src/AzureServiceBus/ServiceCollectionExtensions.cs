@@ -1,11 +1,12 @@
 ﻿using Azure.Identity;
 using Azure.Messaging.ServiceBus;
 using Bridge.Bus;
+using Bridge.Bus.AzureServiceBus;
 using Microsoft.Extensions.Azure;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class ServiceCollectionExtensions
+public static partial class ServiceCollectionExtensions
 {
     public static BusBridgeBuilder UsingAzureServiceBus(
         this BusBridgeBuilder builder,

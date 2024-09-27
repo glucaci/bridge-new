@@ -1,9 +1,8 @@
-﻿using Bridge.Workflow;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace Bridge.Bus.AzureQueueStorage;
+namespace Bridge.Workflow.Bus.AzureQueueStorage;
 
 public class AzureStorageQueueProvider : IQueueProvider
 {
