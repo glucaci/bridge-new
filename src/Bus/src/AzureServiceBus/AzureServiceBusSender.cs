@@ -7,8 +7,11 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 internal class AzureServiceBusSender : IMessageBus
 {
+    /// <summary>
+    /// https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/servicebus/Azure.Messaging.ServiceBus/samples/Sample11_CloudEvents.md
+    /// </summary>
     private const string CloudEventsContentType = "application/cloudevents+json";
-    
+
     private readonly ServiceBusClient _client;
     private readonly IMemoryCache _queueCache;
 
@@ -20,14 +23,44 @@ internal class AzureServiceBusSender : IMessageBus
         _queueCache = queueCache;
     }
 
-    public async ValueTask Send<TMessage>(TMessage message, string queue, CancellationToken cancellationToken)
+    public ValueTask Send<TMessage>(
+        TMessage message,
+        string queue,
+        CancellationToken cancellationToken)
     {
-        var sender = CreateQueueSender(queue);
+        return SendMessage(message, queue, cancellationToken);
+    }
 
-        var cloudEvent = new CloudEvent(_client.Identifier, typeof(TMessage).Name, message);
+    public ValueTask Schedule<TMessage>(
+        TMessage message,
+        string queue,
+        DateTimeOffset enqueueTime,
+        CancellationToken cancellationToken)
+    {
+        return SendMessage(message, queue, cancellationToken, enqueueTime);
+    }
+
+    private async ValueTask SendMessage<TMessage>(
+        TMessage message,
+        string queue,
+        CancellationToken cancellationToken,
+        DateTimeOffset? scheduledEnqueueTime = default)
+    {
+        ServiceBusSender sender = CreateQueueSender(queue);
+
+        CloudEvent cloudEvent = new CloudEvent(
+            _client.Identifier, typeof(TMessage).Name, message);
 
         ServiceBusMessage serviceBusMessage =
-            new ServiceBusMessage(new BinaryData(cloudEvent)) { ContentType = CloudEventsContentType };
+            new ServiceBusMessage(new BinaryData(cloudEvent))
+            {
+                ContentType = CloudEventsContentType
+            };
+
+        if (scheduledEnqueueTime.HasValue)
+        {
+            serviceBusMessage.ScheduledEnqueueTime = scheduledEnqueueTime.Value;
+        }
 
         await sender.SendMessageAsync(serviceBusMessage, cancellationToken);
     }
