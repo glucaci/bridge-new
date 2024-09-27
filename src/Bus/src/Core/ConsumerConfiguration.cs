@@ -4,16 +4,23 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Bridge.Bus;
 
 internal delegate ValueTask HandleMessageDelegate(
-    IServiceProvider serviceProvider, 
-    CloudEvent cloudEvent, 
+    IServiceProvider serviceProvider,
+    CloudEvent cloudEvent,
     CancellationToken cancellationToken);
 
-internal class ConsumerConfiguration
+public class ConsumerConfiguration
 {
-    public string QueueName { get; }
-    public Type HandlerType { get; }
-    public Type MessageType { get; }
-    public HandleMessageDelegate HandleMessage { get; }
+    internal string QueueName { get; }
+    internal Type HandlerType { get; }
+    internal Type MessageType { get; }
+    internal HandleMessageDelegate HandleMessage { get; }
+
+    private TimeSpan _maxProcessingTime = TimeSpan.FromMinutes(5);
+    public TimeSpan MaxProcessingTime
+    {
+        get => _maxProcessingTime;
+        set => _maxProcessingTime = TimeSpan.FromMinutes(Math.Max(5, value.TotalMinutes));
+    }
 
     private ConsumerConfiguration(
         string queueName,
@@ -32,14 +39,14 @@ internal class ConsumerConfiguration
         return cloudEvent.Data!.ToObjectFromJson<T>();
     }
 
-    public static ConsumerConfiguration Create<TConsumer, TMessage>(string queueName)
+    internal static ConsumerConfiguration Create<TConsumer, TMessage>(string queueName)
         where TConsumer : IConsumer<TMessage>
     {
         HandleMessageDelegate handleMessage =
             async (serviceProvider, cloudEvent, cancellationToken) =>
             {
-                var handler = serviceProvider.GetRequiredService<TConsumer>();
-                var message = Convert<TMessage>(cloudEvent);
+                TConsumer handler = serviceProvider.GetRequiredService<TConsumer>();
+                TMessage message = Convert<TMessage>(cloudEvent);
                 await handler.Handle(message, cancellationToken);
             };
 

@@ -17,13 +17,13 @@ public static class ServiceCollectionExtensions
             throw new ArgumentNullException(nameof(builder));
         }
 
-        var options = new AzureServiceBusOptions();
+        AzureServiceBusOptions options = new AzureServiceBusOptions();
         configureOptions?.Invoke(options);
 
-        foreach (var messageHandlerOption in builder.Consumers)
+        foreach (ConsumerConfiguration consumerConfiguration in builder.Consumers)
         {
-            builder.Services.AddHostedService(sp => 
-                new AzureServiceBusProcessor(sp, messageHandlerOption));
+            builder.Services.AddHostedService(sp =>
+                new AzureServiceBusProcessor(sp, consumerConfiguration));
         }
 
         builder.Services.AddAzureClients(azureClientFactoryBuilder =>
@@ -43,15 +43,23 @@ public static class ServiceCollectionExtensions
                 azureClientFactoryBuilder.UseCredential(new ManagedIdentityCredential());
             }
 
-            foreach (var messageHandlerOption in builder.Consumers)
+            foreach (ConsumerConfiguration consumerConfiguration in builder.Consumers)
             {
                 azureClientFactoryBuilder
                     .AddClient<ServiceBusProcessor, ServiceBusClientOptions>((_, _, provider) =>
                     {
-                        var serviceBusClient = provider.GetRequiredService<ServiceBusClient>();
-                        return serviceBusClient.CreateProcessor(messageHandlerOption.QueueName);
+                        ServiceBusClient serviceBusClient = provider.GetRequiredService<ServiceBusClient>();
+
+                        return serviceBusClient.CreateProcessor(
+                            consumerConfiguration.QueueName,
+                            new ServiceBusProcessorOptions
+                            {
+                                ReceiveMode = ServiceBusReceiveMode.PeekLock,
+                                AutoCompleteMessages = false,
+                                MaxAutoLockRenewalDuration = consumerConfiguration.MaxProcessingTime
+                            });
                     })
-                    .WithName(messageHandlerOption.QueueName);
+                    .WithName(consumerConfiguration.QueueName);
             }
         });
 
