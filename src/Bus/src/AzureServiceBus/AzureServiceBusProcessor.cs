@@ -24,10 +24,7 @@ internal class AzureServiceBusProcessor : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var serviceBusClientFactory = _serviceProvider
-            .GetRequiredService<IAzureClientFactory<ServiceBusProcessor>>();
-        var client = serviceBusClientFactory
-            .CreateClient(_consumerConfiguration.QueueName);
+        ServiceBusProcessor client = CreateServiceBusProcessor();
 
         client.ProcessMessageAsync += HandleMessage;
         client.ProcessErrorAsync += HandleError;
@@ -43,7 +40,7 @@ internal class AzureServiceBusProcessor : IHostedService
 
     private async Task HandleMessage(ProcessMessageEventArgs arg)
     {
-        var cloudEvent = CloudEvent.Parse(arg.Message.Body);
+        CloudEvent? cloudEvent = CloudEvent.Parse(arg.Message.Body);
         if (cloudEvent == null)
         {
             await arg.DeadLetterMessageAsync(arg.Message);
@@ -57,14 +54,21 @@ internal class AzureServiceBusProcessor : IHostedService
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
-        var serviceBusClientFactory = _serviceProvider
-            .GetRequiredService<IAzureClientFactory<ServiceBusProcessor>>();
-        var client = serviceBusClientFactory
-            .CreateClient(_consumerConfiguration.QueueName);
+        ServiceBusProcessor client = CreateServiceBusProcessor();
 
         client.ProcessMessageAsync -= HandleMessage;
         client.ProcessErrorAsync -= HandleError;
 
         await client.StopProcessingAsync(cancellationToken);
+        await client.DisposeAsync();
+    }
+
+    private ServiceBusProcessor CreateServiceBusProcessor()
+    {
+        IAzureClientFactory<ServiceBusProcessor> serviceBusClientFactory = _serviceProvider
+            .GetRequiredService<IAzureClientFactory<ServiceBusProcessor>>();
+
+        return serviceBusClientFactory
+            .CreateClient(_consumerConfiguration.QueueName);
     }
 }

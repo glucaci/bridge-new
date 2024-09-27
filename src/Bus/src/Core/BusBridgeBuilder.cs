@@ -10,16 +10,22 @@ public class BusBridgeBuilder
     {
         Services = services;
     }
-    
+
     internal IReadOnlyList<ConsumerConfiguration> Consumers => _consumers;
 
     public IServiceCollection Services { get; }
 
-    public BusBridgeBuilder AddConsumer<TConsumer, TMessage>(string queueName)
+    public BusBridgeBuilder AddConsumer<TConsumer, TMessage>(
+        string queueName,
+        Action<ConsumerConfiguration>? configure = default)
         where TConsumer : class, IConsumer<TMessage>
     {
         Services.AddSingleton<TConsumer>();
-        _consumers.Add(ConsumerConfiguration.Create<TConsumer, TMessage>(queueName));
+        var consumerConfiguration = ConsumerConfiguration.Create<TConsumer, TMessage>(queueName);
+
+        configure?.Invoke(consumerConfiguration);
+
+        _consumers.Add(consumerConfiguration);
 
         return this;
     }
