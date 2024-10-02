@@ -13,3 +13,5 @@ Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.QueueWork(string! id, Bridg
 Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.SingleNodeQueueProvider() -> void
 Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.Start() -> System.Threading.Tasks.Task!
 Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.Stop() -> System.Threading.Tasks.Task!
+Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseInMemoryBus(this Bridge.Workflow.WorkflowOptions! options) -> Bridge.Workflow.WorkflowOptions!

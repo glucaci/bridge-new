@@ -54,3 +54,5 @@ Bridge.Workflow.Storage.InMemory.TransientMemoryPersistenceProvider.SetSubscript
 Bridge.Workflow.Storage.InMemory.TransientMemoryPersistenceProvider.SupportsScheduledCommands.get -> bool
 Bridge.Workflow.Storage.InMemory.TransientMemoryPersistenceProvider.TerminateSubscription(string! eventSubscriptionId, System.Threading.CancellationToken _ = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
 Bridge.Workflow.Storage.InMemory.TransientMemoryPersistenceProvider.TransientMemoryPersistenceProvider(Bridge.Workflow.Storage.InMemory.ISingletonMemoryProvider! innerService) -> void
+Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseInMemoryStorage(this Bridge.Workflow.WorkflowOptions! options) -> Bridge.Workflow.WorkflowOptions!

@@ -44,3 +44,6 @@ Bridge.Workflow.Storage.MongoDB.WorkflowPurger.PurgeWorkflows(Bridge.Workflow.Wo
 Bridge.Workflow.Storage.MongoDB.WorkflowPurger.WorkflowPurger(MongoDB.Driver.IMongoDatabase! database) -> void
 override Bridge.Workflow.Storage.MongoDB.DataObjectSerializer.Deserialize(MongoDB.Bson.Serialization.BsonDeserializationContext! context, MongoDB.Bson.Serialization.BsonDeserializationArgs args) -> object!
 override Bridge.Workflow.Storage.MongoDB.DataObjectSerializer.Serialize(MongoDB.Bson.Serialization.BsonSerializationContext! context, MongoDB.Bson.Serialization.BsonSerializationArgs args, object! value) -> void
+Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseMongoDB(this Bridge.Workflow.WorkflowOptions! options, string! mongoUrl, string! databaseName, System.Action<MongoDB.Driver.MongoClientSettings!>! configureClient = null) -> Bridge.Workflow.WorkflowOptions!
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseMongoDB(this Bridge.Workflow.WorkflowOptions! options, System.Func<System.IServiceProvider!, MongoDB.Driver.IMongoDatabase!>! createDatabase) -> Bridge.Workflow.WorkflowOptions!
