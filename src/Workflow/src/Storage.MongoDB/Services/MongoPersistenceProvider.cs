@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver.Linq;
 using Bridge.Workflow;
 
-namespace Bridge.Storage.MongoDB;
+namespace Bridge.Workflow.Storage.MongoDB;
 
 public class MongoPersistenceProvider : IPersistenceProvider
 {

@@ -1,6 +1,6 @@
 ﻿using Bridge.Workflow;
 
-namespace Bridge.Storage.InMemory;
+namespace Bridge.Workflow.Storage.InMemory;
 
 public interface ISingletonMemoryProvider : IPersistenceProvider
 {

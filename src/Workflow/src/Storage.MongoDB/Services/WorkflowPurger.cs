@@ -1,7 +1,7 @@
 using MongoDB.Driver;
 using Bridge.Workflow;
 
-namespace Bridge.Storage.MongoDB;
+namespace Bridge.Workflow.Storage.MongoDB;
 
 public class WorkflowPurger : IWorkflowPurger
 {

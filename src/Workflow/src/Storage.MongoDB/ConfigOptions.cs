@@ -1,4 +1,4 @@
-﻿namespace Bridge.Storage.MongoDB;
+﻿namespace Bridge.Workflow.Storage.MongoDB;
 
 public class ConfigOptions
 {

@@ -1,6 +1,6 @@
 using Bridge.Workflow;
 
-namespace Bridge.Storage.InMemory;
+namespace Bridge.Workflow.Storage.InMemory;
 
 public class TransientMemoryPersistenceProvider : IPersistenceProvider
 {

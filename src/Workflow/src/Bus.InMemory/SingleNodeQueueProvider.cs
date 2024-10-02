@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using Bridge.Workflow;
 
-namespace Bridge.Bus.InMemory;
+namespace Bridge.Workflow.Bus.InMemory;
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
 /// <summary>

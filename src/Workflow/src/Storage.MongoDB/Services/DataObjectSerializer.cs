@@ -4,7 +4,7 @@ using MongoDB.Bson;
 using System.Collections;
 using Newtonsoft.Json;
 
-namespace Bridge.Storage.MongoDB;
+namespace Bridge.Workflow.Storage.MongoDB;
 
 public class DataObjectSerializer : SerializerBase<object>
 {

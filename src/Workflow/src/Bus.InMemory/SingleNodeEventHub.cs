@@ -1,7 +1,7 @@
 ﻿using Bridge.Workflow;
 using Microsoft.Extensions.Logging;
 
-namespace Bridge.Bus.InMemory;
+namespace Bridge.Workflow.Bus.InMemory;
 
 public class SingleNodeEventHub : ILifeCycleEventHub
 {
