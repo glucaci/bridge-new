@@ -15,6 +15,3 @@ Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider.Start() -> Syste
 Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider.Stop() -> System.Threading.Tasks.Task!
 Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
 static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseAzureSynchronization(this Bridge.Workflow.WorkflowOptions! options, string! connectionString) -> Bridge.Workflow.WorkflowOptions!
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseAzureServiceBus(this Bridge.Workflow.WorkflowOptions! options, string! connectionString) -> Bridge.Workflow.WorkflowOptions!
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseAzureStorageDistributedLock(this Bridge.Workflow.WorkflowOptions! options, string! connectionString) -> Bridge.Workflow.WorkflowOptions!
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseAzureStorageQueue(this Bridge.Workflow.WorkflowOptions! options, string! connectionString) -> Bridge.Workflow.WorkflowOptions!
