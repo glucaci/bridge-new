@@ -1,3 +1,0 @@
-﻿#nullable enable
-Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseAzureServiceBus(this Bridge.Workflow.WorkflowOptions! options, string! connectionString) -> Bridge.Workflow.WorkflowOptions!
