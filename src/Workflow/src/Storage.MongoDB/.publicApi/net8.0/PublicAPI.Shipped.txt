@@ -1,0 +1,49 @@
+﻿#nullable enable
+Bridge.Workflow.Storage.MongoDB.AssemblyQualifiedDiscriminatorConvention
+Bridge.Workflow.Storage.MongoDB.AssemblyQualifiedDiscriminatorConvention.AssemblyQualifiedDiscriminatorConvention() -> void
+Bridge.Workflow.Storage.MongoDB.AssemblyQualifiedDiscriminatorConvention.ElementName.get -> string!
+Bridge.Workflow.Storage.MongoDB.AssemblyQualifiedDiscriminatorConvention.GetActualType(MongoDB.Bson.IO.IBsonReader! bsonReader, System.Type! nominalType) -> System.Type!
+Bridge.Workflow.Storage.MongoDB.AssemblyQualifiedDiscriminatorConvention.GetDiscriminator(System.Type! nominalType, System.Type! actualType) -> MongoDB.Bson.BsonValue!
+Bridge.Workflow.Storage.MongoDB.ConfigOptions
+Bridge.Workflow.Storage.MongoDB.ConfigOptions.ConfigOptions() -> void
+Bridge.Workflow.Storage.MongoDB.ConfigOptions.DatabaseName.get -> string!
+Bridge.Workflow.Storage.MongoDB.ConfigOptions.DatabaseName.set -> void
+Bridge.Workflow.Storage.MongoDB.ConfigOptions.DatabaseServer.get -> string!
+Bridge.Workflow.Storage.MongoDB.ConfigOptions.DatabaseServer.set -> void
+Bridge.Workflow.Storage.MongoDB.DataObjectSerializer
+Bridge.Workflow.Storage.MongoDB.DataObjectSerializer.DataObjectSerializer() -> void
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.ClearSubscriptionToken(string! eventSubscriptionId, string! token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.CreateEvent(Bridge.Workflow.Event! newEvent, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<string!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.CreateEventSubscription(Bridge.Workflow.EventSubscription! subscription, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<string!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.CreateNewWorkflow(Bridge.Workflow.WorkflowInstance! workflow, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<string!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.EnsureStoreExists() -> void
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetEvent(string! id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Bridge.Workflow.Event!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetEvents(string! eventName, string! eventKey, System.DateTime asOf, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<string!>!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetFirstOpenSubscription(string! eventName, string! eventKey, System.DateTime asOf, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Bridge.Workflow.EventSubscription!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetRunnableEvents(System.DateTime asAt, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<string!>!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetRunnableInstances(System.DateTime asAt, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<string!>!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetSubscription(string! eventSubscriptionId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Bridge.Workflow.EventSubscription!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetSubscriptions(string! eventName, string! eventKey, System.DateTime asOf, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Bridge.Workflow.EventSubscription!>!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetWorkflowInstance(string! Id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Bridge.Workflow.WorkflowInstance!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetWorkflowInstances(Bridge.Workflow.WorkflowStatus? status, string! type, System.DateTime? createdFrom, System.DateTime? createdTo, int skip, int take) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Bridge.Workflow.WorkflowInstance!>!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.GetWorkflowInstances(System.Collections.Generic.IEnumerable<string!>! ids, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Bridge.Workflow.WorkflowInstance!>!>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.MarkEventProcessed(string! id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.MarkEventUnprocessed(string! id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.MongoPersistenceProvider(MongoDB.Driver.IMongoDatabase! database) -> void
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.PersistErrors(System.Collections.Generic.IEnumerable<Bridge.Workflow.ExecutionError!>! errors, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.PersistWorkflow(Bridge.Workflow.WorkflowInstance! workflow, System.Collections.Generic.List<Bridge.Workflow.EventSubscription!>! subscriptions, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.PersistWorkflow(Bridge.Workflow.WorkflowInstance! workflow, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.ProcessCommands(System.DateTimeOffset asOf, System.Func<Bridge.Workflow.ScheduledCommand!, System.Threading.Tasks.Task!>! action, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.ScheduleCommand(Bridge.Workflow.ScheduledCommand! command) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.SetSubscriptionToken(string! eventSubscriptionId, string! token, string! workerId, System.DateTime expiry, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<bool>!
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.SupportsScheduledCommands.get -> bool
+Bridge.Workflow.Storage.MongoDB.MongoPersistenceProvider.TerminateSubscription(string! eventSubscriptionId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.WorkflowPurger
+Bridge.Workflow.Storage.MongoDB.WorkflowPurger.PurgeWorkflows(Bridge.Workflow.WorkflowStatus status, System.DateTime olderThan, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Storage.MongoDB.WorkflowPurger.WorkflowPurger(MongoDB.Driver.IMongoDatabase! database) -> void
+override Bridge.Workflow.Storage.MongoDB.DataObjectSerializer.Deserialize(MongoDB.Bson.Serialization.BsonDeserializationContext! context, MongoDB.Bson.Serialization.BsonDeserializationArgs args) -> object!
+override Bridge.Workflow.Storage.MongoDB.DataObjectSerializer.Serialize(MongoDB.Bson.Serialization.BsonSerializationContext! context, MongoDB.Bson.Serialization.BsonSerializationArgs args, object! value) -> void
+Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseMongoDB(this Bridge.Workflow.WorkflowOptions! options, string! mongoUrl, string! databaseName, System.Action<MongoDB.Driver.MongoClientSettings!>! configureClient = null) -> Bridge.Workflow.WorkflowOptions!
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseMongoDB(this Bridge.Workflow.WorkflowOptions! options, System.Func<System.IServiceProvider!, MongoDB.Driver.IMongoDatabase!>! createDatabase) -> Bridge.Workflow.WorkflowOptions!

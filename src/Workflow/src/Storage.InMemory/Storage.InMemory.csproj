@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageId>Bridge.Workflow.Storage.InMemory</PackageId>
+		<AssemblyName>Bridge.Workflow.Storage.InMemory</AssemblyName>
+		<RootNamespace>Bridge.Workflow.Storage.InMemory</RootNamespace>
+		<Description>Bridge Workflow Storage InMemory.</Description>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Core\Core.csproj" />
+	</ItemGroup>
+
+</Project>

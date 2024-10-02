@@ -1,17 +1,4 @@
 ﻿#nullable enable
-Bridge.Bus.InMemory.SingleNodeEventHub
-Bridge.Bus.InMemory.SingleNodeEventHub.PublishNotification(Bridge.Workflow.LifeCycleEvent evt) -> System.Threading.Tasks.Task
-Bridge.Bus.InMemory.SingleNodeEventHub.SingleNodeEventHub(Microsoft.Extensions.Logging.ILoggerFactory loggerFactory) -> void
-Bridge.Bus.InMemory.SingleNodeEventHub.Start() -> System.Threading.Tasks.Task
-Bridge.Bus.InMemory.SingleNodeEventHub.Stop() -> System.Threading.Tasks.Task
-Bridge.Bus.InMemory.SingleNodeEventHub.Subscribe(System.Action<Bridge.Workflow.LifeCycleEvent> action) -> void
-Bridge.Bus.InMemory.SingleNodeQueueProvider
-Bridge.Bus.InMemory.SingleNodeQueueProvider.DequeueWork(Bridge.Workflow.QueueType queue, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<string>
-Bridge.Bus.InMemory.SingleNodeQueueProvider.Dispose() -> void
-Bridge.Bus.InMemory.SingleNodeQueueProvider.IsDequeueBlocking.get -> bool
-Bridge.Bus.InMemory.SingleNodeQueueProvider.QueueWork(string id, Bridge.Workflow.QueueType queue) -> System.Threading.Tasks.Task
-Bridge.Bus.InMemory.SingleNodeQueueProvider.SingleNodeQueueProvider() -> void
-Bridge.Bus.InMemory.SingleNodeQueueProvider.Start() -> System.Threading.Tasks.Task
-Bridge.Bus.InMemory.SingleNodeQueueProvider.Stop() -> System.Threading.Tasks.Task
 Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseInMemoryBus(this Bridge.Workflow.WorkflowOptions options) -> Bridge.Workflow.WorkflowOptions
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingInMemory(this Bridge.Bus.BusBridgeBuilder builder) -> Bridge.Bus.BusBridgeBuilder
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingInMemory(this Bridge.Bus.BusBridgeBuilder builder, System.TimeProvider timeProvider) -> Bridge.Bus.BusBridgeBuilder
