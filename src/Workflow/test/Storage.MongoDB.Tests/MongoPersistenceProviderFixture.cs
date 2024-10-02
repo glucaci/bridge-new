@@ -1,8 +1,7 @@
-﻿using Bridge.Workflow;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using Xunit;
 
-namespace Bridge.Storage.MongoDB.Tests;
+namespace Bridge.Workflow.Storage.MongoDB.Tests;
 
 [Collection("Mongo collection")]
 public class MongoPersistenceProviderFixture : BasePersistenceFixture

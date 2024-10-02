@@ -1,5 +1,5 @@
-﻿using Bridge.Storage.MongoDB;
-using Bridge.Workflow;
+﻿using Bridge.Workflow;
+using Bridge.Workflow.Storage.MongoDB;
 using MongoDB.Driver;
 
 namespace Microsoft.Extensions.DependencyInjection;

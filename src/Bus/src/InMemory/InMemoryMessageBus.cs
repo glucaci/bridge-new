@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace Bridge.Bus;
+namespace Bridge.Bus.InMemory;
 
 internal class InMemoryMessageBus : IMessageBus
 {

@@ -1,0 +1,2 @@
+﻿Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingInMemory(this Bridge.Bus.BusBridgeBuilder builder) -> Bridge.Bus.BusBridgeBuilder

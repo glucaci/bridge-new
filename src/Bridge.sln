@@ -67,6 +67,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage.MongoDB", "Workflow
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage.MongoDB.Tests", "Workflow\test\Storage.MongoDB.Tests\Storage.MongoDB.Tests.csproj", "{0AE98558-BF97-46FB-939A-554F12859E47}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InMemory", "Bus\src\InMemory\InMemory.csproj", "{51E592B1-FA80-4ECC-AA45-6F96596B2DB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{0AE98558-BF97-46FB-939A-554F12859E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AE98558-BF97-46FB-939A-554F12859E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AE98558-BF97-46FB-939A-554F12859E47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51E592B1-FA80-4ECC-AA45-6F96596B2DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E592B1-FA80-4ECC-AA45-6F96596B2DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E592B1-FA80-4ECC-AA45-6F96596B2DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E592B1-FA80-4ECC-AA45-6F96596B2DB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,6 +149,7 @@ Global
 		{2B7F0D10-9BB2-4205-80FF-9D171E15A242} = {82FFAFCF-946F-44C1-8D93-36F4F3A4C8D2}
 		{25AB1D2B-213E-4D06-AF08-C721C331A851} = {82FFAFCF-946F-44C1-8D93-36F4F3A4C8D2}
 		{0AE98558-BF97-46FB-939A-554F12859E47} = {CF208E03-D3ED-47CD-81D1-CFEE0162F85B}
+		{51E592B1-FA80-4ECC-AA45-6F96596B2DB0} = {DF661BCC-8A7A-46AE-B1EB-F7309687C0C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F587936-733F-4B9A-8B37-2D54C0009FC2}

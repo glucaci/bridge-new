@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Bridge.Storage.MongoDB.Tests;
+namespace Bridge.Workflow.Storage.MongoDB.Tests;
 
 [Collection("Mongo collection")]
 public class MongoForEachScenario : ForeachScenario

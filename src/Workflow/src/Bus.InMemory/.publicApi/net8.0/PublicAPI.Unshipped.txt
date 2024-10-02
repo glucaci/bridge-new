@@ -1,1 +1,15 @@
 ﻿#nullable enable
+Bridge.Workflow.Bus.InMemory.SingleNodeEventHub
+Bridge.Workflow.Bus.InMemory.SingleNodeEventHub.PublishNotification(Bridge.Workflow.LifeCycleEvent! evt) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.InMemory.SingleNodeEventHub.SingleNodeEventHub(Microsoft.Extensions.Logging.ILoggerFactory! loggerFactory) -> void
+Bridge.Workflow.Bus.InMemory.SingleNodeEventHub.Start() -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.InMemory.SingleNodeEventHub.Stop() -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.InMemory.SingleNodeEventHub.Subscribe(System.Action<Bridge.Workflow.LifeCycleEvent!>! action) -> void
+Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider
+Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.DequeueWork(Bridge.Workflow.QueueType queue, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<string!>!
+Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.Dispose() -> void
+Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.IsDequeueBlocking.get -> bool
+Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.QueueWork(string! id, Bridge.Workflow.QueueType queue) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.SingleNodeQueueProvider() -> void
+Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.Start() -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.InMemory.SingleNodeQueueProvider.Stop() -> System.Threading.Tasks.Task!

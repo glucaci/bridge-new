@@ -1,7 +1,7 @@
 ﻿using Squadron;
 using Xunit;
 
-namespace Bridge.Storage.MongoDB.Tests;
+namespace Bridge.Workflow.Storage.MongoDB.Tests;
 
 public class MongoDockerSetup : IAsyncLifetime
 {

@@ -1,5 +1,5 @@
-﻿using Bridge.Storage.InMemory;
-using Bridge.Workflow;
+﻿using Bridge.Workflow;
+using Bridge.Workflow.Storage.InMemory;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

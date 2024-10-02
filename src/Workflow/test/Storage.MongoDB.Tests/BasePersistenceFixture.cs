@@ -1,9 +1,8 @@
-﻿using Bridge.Workflow;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace Bridge.Storage.MongoDB.Tests;
+namespace Bridge.Workflow.Storage.MongoDB.Tests;
 
 public abstract class BasePersistenceFixture
 {

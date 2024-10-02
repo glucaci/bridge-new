@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
 using Xunit;
 
-namespace Bridge.Storage.MongoDB.Tests;
+namespace Bridge.Workflow.Storage.MongoDB.Tests;
 
 [Collection("Mongo collection")]
 public class MongoDataScenario : DataIOScenario

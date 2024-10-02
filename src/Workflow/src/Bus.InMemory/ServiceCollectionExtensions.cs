@@ -1,5 +1,5 @@
-﻿using Bridge.Bus.InMemory;
-using Bridge.Workflow;
+﻿using Bridge.Workflow;
+using Bridge.Workflow.Bus.InMemory;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Extensions.DependencyInjection;
