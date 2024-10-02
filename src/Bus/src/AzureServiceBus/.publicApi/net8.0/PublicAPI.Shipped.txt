@@ -1,1 +1,25 @@
 ﻿#nullable enable
+Bridge.Bus.AzureServiceBus.AuthenticationType
+Bridge.Bus.AzureServiceBus.AuthenticationType.AccessKeys = 0 -> Bridge.Bus.AzureServiceBus.AuthenticationType
+Bridge.Bus.AzureServiceBus.AuthenticationType.EntraId = 1 -> Bridge.Bus.AzureServiceBus.AuthenticationType
+Bridge.Bus.AzureServiceBus.AzureServiceBusOptions
+Bridge.Bus.AzureServiceBus.AzureServiceBusOptions.AuthenticationType.get -> Bridge.Bus.AzureServiceBus.AuthenticationType
+Bridge.Bus.AzureServiceBus.AzureServiceBusOptions.AuthenticationType.set -> void
+Bridge.Bus.AzureServiceBus.AzureServiceBusOptions.AzureServiceBusOptions() -> void
+Bridge.Bus.AzureServiceBus.AzureServiceBusOptions.ConnectionString.get -> string?
+Bridge.Bus.AzureServiceBus.AzureServiceBusOptions.ConnectionString.set -> void
+Bridge.Bus.AzureServiceBus.AzureServiceBusOptions.FullyQualifiedNamespace.get -> string?
+Bridge.Bus.AzureServiceBus.AzureServiceBusOptions.FullyQualifiedNamespace.set -> void
+Microsoft.Extensions.DependencyInjection.AuthenticationType
+Microsoft.Extensions.DependencyInjection.AuthenticationType.AccessKeys = 0 -> Microsoft.Extensions.DependencyInjection.AuthenticationType
+Microsoft.Extensions.DependencyInjection.AuthenticationType.EntraId = 1 -> Microsoft.Extensions.DependencyInjection.AuthenticationType
+Microsoft.Extensions.DependencyInjection.AzureServiceBusOptions
+Microsoft.Extensions.DependencyInjection.AzureServiceBusOptions.AuthenticationType.get -> Microsoft.Extensions.DependencyInjection.AuthenticationType
+Microsoft.Extensions.DependencyInjection.AzureServiceBusOptions.AuthenticationType.set -> void
+Microsoft.Extensions.DependencyInjection.AzureServiceBusOptions.AzureServiceBusOptions() -> void
+Microsoft.Extensions.DependencyInjection.AzureServiceBusOptions.ConnectionString.get -> string?
+Microsoft.Extensions.DependencyInjection.AzureServiceBusOptions.ConnectionString.set -> void
+Microsoft.Extensions.DependencyInjection.AzureServiceBusOptions.FullyQualifiedNamespace.get -> string?
+Microsoft.Extensions.DependencyInjection.AzureServiceBusOptions.FullyQualifiedNamespace.set -> void
+Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingAzureServiceBus(this Bridge.Bus.BusBridgeBuilder! builder, System.Action<Bridge.Bus.AzureServiceBus.AzureServiceBusOptions!>? configureOptions = null, System.Action<Azure.Messaging.ServiceBus.ServiceBusClientOptions!>? configureClient = null) -> Bridge.Bus.BusBridgeBuilder!

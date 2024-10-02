@@ -1,17 +1,18 @@
 ﻿#nullable enable
-Bridge.Bus.AzureQueueStorage.AzureLockManager
-Bridge.Bus.AzureQueueStorage.AzureLockManager.AcquireLock(string Id, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>
-Bridge.Bus.AzureQueueStorage.AzureLockManager.AzureLockManager(string connectionString, Microsoft.Extensions.Logging.ILoggerFactory logFactory) -> void
-Bridge.Bus.AzureQueueStorage.AzureLockManager.ReleaseLock(string Id) -> System.Threading.Tasks.Task
-Bridge.Bus.AzureQueueStorage.AzureLockManager.Start() -> System.Threading.Tasks.Task
-Bridge.Bus.AzureQueueStorage.AzureLockManager.Stop() -> System.Threading.Tasks.Task
-Bridge.Bus.AzureQueueStorage.AzureStorageQueueProvider
-Bridge.Bus.AzureQueueStorage.AzureStorageQueueProvider.AzureStorageQueueProvider(string connectionString, Microsoft.Extensions.Logging.ILoggerFactory logFactory) -> void
-Bridge.Bus.AzureQueueStorage.AzureStorageQueueProvider.DequeueWork(Bridge.Workflow.QueueType queue, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<string>
-Bridge.Bus.AzureQueueStorage.AzureStorageQueueProvider.Dispose() -> void
-Bridge.Bus.AzureQueueStorage.AzureStorageQueueProvider.IsDequeueBlocking.get -> bool
-Bridge.Bus.AzureQueueStorage.AzureStorageQueueProvider.QueueWork(string id, Bridge.Workflow.QueueType queue) -> System.Threading.Tasks.Task
-Bridge.Bus.AzureQueueStorage.AzureStorageQueueProvider.Start() -> System.Threading.Tasks.Task
-Bridge.Bus.AzureQueueStorage.AzureStorageQueueProvider.Stop() -> System.Threading.Tasks.Task
-Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseAzureSynchronization(this Bridge.Workflow.WorkflowOptions options, string connectionString) -> Bridge.Workflow.WorkflowOptions
+Bridge.Workflow.Bus.AzureQueueStorage.AzureLockManager
+Bridge.Workflow.Bus.AzureQueueStorage.AzureLockManager.AcquireLock(string! Id, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
+Bridge.Workflow.Bus.AzureQueueStorage.AzureLockManager.AzureLockManager(string! connectionString, Microsoft.Extensions.Logging.ILoggerFactory! logFactory) -> void
+Bridge.Workflow.Bus.AzureQueueStorage.AzureLockManager.ReleaseLock(string! Id) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.AzureQueueStorage.AzureLockManager.Start() -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.AzureQueueStorage.AzureLockManager.Stop() -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider
+Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider.AzureStorageQueueProvider(string! connectionString, Microsoft.Extensions.Logging.ILoggerFactory! logFactory) -> void
+Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider.DequeueWork(Bridge.Workflow.QueueType queue, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<string!>!
+Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider.Dispose() -> void
+Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider.IsDequeueBlocking.get -> bool
+Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider.QueueWork(string! id, Bridge.Workflow.QueueType queue) -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider.Start() -> System.Threading.Tasks.Task!
+Bridge.Workflow.Bus.AzureQueueStorage.AzureStorageQueueProvider.Stop() -> System.Threading.Tasks.Task!
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseAzureServiceBus(this Bridge.Workflow.WorkflowOptions! options, string! connectionString) -> Bridge.Workflow.WorkflowOptions!
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseAzureStorageDistributedLock(this Bridge.Workflow.WorkflowOptions! options, string! connectionString) -> Bridge.Workflow.WorkflowOptions!
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UseAzureStorageQueue(this Bridge.Workflow.WorkflowOptions! options, string! connectionString) -> Bridge.Workflow.WorkflowOptions!
