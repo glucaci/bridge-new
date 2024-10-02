@@ -1,7 +1,4 @@
 ﻿#nullable enable
-Bridge.Bus.InMemory.InMemoryProcessor
-Bridge.Bus.InMemory.InMemoryProcessor.InMemoryProcessor(System.IServiceProvider serviceProvider, Bridge.Bus.ConsumerConfiguration consumerConfiguration, System.TimeProvider timeProvider) -> void
 Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
-override Bridge.Bus.InMemory.InMemoryProcessor.ExecuteAsync(System.Threading.CancellationToken stoppingToken) -> System.Threading.Tasks.Task
 static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingInMemory(this Bridge.Bus.BusBridgeBuilder builder) -> Bridge.Bus.BusBridgeBuilder
 static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingInMemory(this Bridge.Bus.BusBridgeBuilder builder, System.TimeProvider timeProvider) -> Bridge.Bus.BusBridgeBuilder

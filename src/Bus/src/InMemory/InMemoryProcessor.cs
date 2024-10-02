@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Bridge.Bus.InMemory;
 
-public class InMemoryProcessor : BackgroundService
+internal class InMemoryProcessor : BackgroundService
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly ConsumerConfiguration _consumerConfiguration;
