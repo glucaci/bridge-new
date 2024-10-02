@@ -6,7 +6,7 @@ public class BusBridgeBuilder
 {
     private readonly List<ConsumerConfiguration> _consumers = new();
 
-    public BusBridgeBuilder(IServiceCollection services)
+    internal BusBridgeBuilder(IServiceCollection services)
     {
         Services = services;
     }
