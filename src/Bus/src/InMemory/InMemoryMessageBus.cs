@@ -1,19 +1,21 @@
-﻿using System.Collections.Concurrent;
-using System.Threading.Channels;
-using Azure.Messaging;
+﻿using Azure.Messaging;
 
 namespace Bridge.Bus.InMemory;
 
-internal record InMemoryMessage(DateTimeOffset EnqueueTime, CloudEvent CloudEvent);
-
-internal class InMemoryMessageBus : IInMemoryMessageBus
+internal class InMemoryMessageBus : IMessageBus
 {
-    private readonly ConcurrentDictionary<string, Channel<InMemoryMessage>> _queues = new();
     private readonly TimeProvider _timeProvider;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly Dictionary<string,ConsumerConfiguration> _consumersMap;
 
-    public InMemoryMessageBus(TimeProvider timeProvider)
+    public InMemoryMessageBus(
+        TimeProvider timeProvider,
+        IServiceProvider serviceProvider,
+        IReadOnlyList<ConsumerConfiguration> consumers)
     {
         _timeProvider = timeProvider;
+        _serviceProvider = serviceProvider;
+        _consumersMap = consumers.ToDictionary(c => c.QueueName, c => c);
     }
 
     public ValueTask Send<TMessage>(
@@ -33,40 +35,30 @@ internal class InMemoryMessageBus : IInMemoryMessageBus
         return SendMessage(message, queue, cancellationToken, enqueueTime);
     }
 
-    private ValueTask SendMessage<TMessage>(
+    private async ValueTask SendMessage<TMessage>(
         TMessage message,
         string queue,
         CancellationToken cancellationToken,
         DateTimeOffset? scheduledEnqueueTime = default)
     {
-        var channel = GetOrCreateChannel(queue);
-
-        DateTimeOffset enqueueTime = _timeProvider.GetUtcNow();
+        DateTimeOffset now = _timeProvider.GetUtcNow();
+        DateTimeOffset enqueueTime = now;
 
         if (scheduledEnqueueTime.HasValue)
         {
             enqueueTime = scheduledEnqueueTime.Value;
         }
 
-        CloudEvent cloudEvent = new CloudEvent(
-            nameof(InMemoryMessageBus), typeof(TMessage).Name, message);
-
-        var inMemoryMessage = new InMemoryMessage(enqueueTime, cloudEvent);
-
-        return channel.Writer.WriteAsync(inMemoryMessage, cancellationToken);
-    }
-
-    private Channel<InMemoryMessage> GetOrCreateChannel(string queue)
-    {
-        return _queues.GetOrAdd(queue, _ =>
-            Channel.CreateBounded<InMemoryMessage>(
-                new BoundedChannelOptions(100) { FullMode = BoundedChannelFullMode.Wait }));
-    }
-
-    public Channel<InMemoryMessage> GetChannelFor(string queue)
-    {
-        return _queues.TryGetValue(queue, out var channel)
-            ? channel
-            : throw new InvalidOperationException($"Queue '{queue}' does not exist.");
+        if (now >= enqueueTime)
+        {
+            CloudEvent cloudEvent = new CloudEvent(
+                nameof(InMemoryMessageBus), typeof(TMessage).Name, message);
+            
+            if (_consumersMap.TryGetValue(queue, out var consumerConfiguration))
+            {
+                await consumerConfiguration
+                    .HandleMessage(_serviceProvider, cloudEvent, cancellationToken);
+            }
+        }
     }
 }

@@ -17,13 +17,8 @@ public static partial class ServiceCollectionExtensions
             throw new ArgumentNullException(nameof(builder));
         }
 
-        foreach (ConsumerConfiguration consumerConfiguration in builder.Consumers)
-        {
-            builder.Services.AddHostedService(sp =>
-                new InMemoryProcessor(sp, consumerConfiguration, timeProvider));
-        }
-
-        builder.Services.AddSingleton<IMessageBus>(_ => new InMemoryMessageBus(timeProvider));
+        builder.Services.AddSingleton<IMessageBus>(sp => 
+            new InMemoryMessageBus(timeProvider, sp, builder.Consumers));
 
         return builder;
     }
