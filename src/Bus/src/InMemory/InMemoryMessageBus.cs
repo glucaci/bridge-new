@@ -1,21 +1,17 @@
-﻿using Azure.Messaging;
+﻿using System.Collections.Concurrent;
+using System.Threading.Channels;
+using Azure.Messaging;
 
 namespace Bridge.Bus.InMemory;
 
-internal class InMemoryMessageBus : IMessageBus
+internal class InMemoryMessageBus : IInMemoryMessageBus
 {
+    private readonly ConcurrentDictionary<string, ItemsAwareChannel<InMemoryMessage>> _queues = new();
     private readonly TimeProvider _timeProvider;
-    private readonly IServiceProvider _serviceProvider;
-    private readonly Dictionary<string,ConsumerConfiguration> _consumersMap;
 
-    public InMemoryMessageBus(
-        TimeProvider timeProvider,
-        IServiceProvider serviceProvider,
-        IReadOnlyList<ConsumerConfiguration> consumers)
+    public InMemoryMessageBus(TimeProvider timeProvider)
     {
         _timeProvider = timeProvider;
-        _serviceProvider = serviceProvider;
-        _consumersMap = consumers.ToDictionary(c => c.QueueName, c => c);
     }
 
     public ValueTask Send<TMessage>(
@@ -41,24 +37,27 @@ internal class InMemoryMessageBus : IMessageBus
         CancellationToken cancellationToken,
         DateTimeOffset? scheduledEnqueueTime = default)
     {
-        DateTimeOffset now = _timeProvider.GetUtcNow();
-        DateTimeOffset enqueueTime = now;
+        var queueInstance = GetQueue(queue);
+
+        DateTimeOffset enqueueTime = _timeProvider.GetUtcNow();
 
         if (scheduledEnqueueTime.HasValue)
         {
             enqueueTime = scheduledEnqueueTime.Value;
         }
 
-        if (now >= enqueueTime)
-        {
-            CloudEvent cloudEvent = new CloudEvent(
-                nameof(InMemoryMessageBus), typeof(TMessage).Name, message);
-            
-            if (_consumersMap.TryGetValue(queue, out var consumerConfiguration))
-            {
-                await consumerConfiguration
-                    .HandleMessage(_serviceProvider, cloudEvent, cancellationToken);
-            }
-        }
+        CloudEvent cloudEvent = new CloudEvent(
+            nameof(InMemoryMessageBus), typeof(TMessage).Name, message);
+
+        var inMemoryMessage = new InMemoryMessage(enqueueTime, cloudEvent);
+
+        await queueInstance.Enqueue(inMemoryMessage, cancellationToken);
+    }
+
+    public ItemsAwareChannel<InMemoryMessage> GetQueue(string queue)
+    {
+        return _queues.GetOrAdd(queue, _ =>
+            new ItemsAwareChannel<InMemoryMessage>(Channel.CreateBounded<InMemoryMessage>(
+                new BoundedChannelOptions(100) { FullMode = BoundedChannelFullMode.Wait })));
     }
 }

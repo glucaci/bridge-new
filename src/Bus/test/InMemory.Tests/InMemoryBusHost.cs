@@ -1,53 +1,60 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Time.Testing;
-using Xunit;
 
 namespace Bridge.Bus.InMemory.Tests;
 
-public class InMemoryBusHost<TConsumer, TMessage> : IAsyncLifetime 
+public class InMemoryBusHost<TConsumer, TMessage> 
     where TConsumer : class, IConsumer<TMessage>
 {
-    private readonly IServiceCollection _services;
-    private IServiceProvider _serviceProvider;
-
-    public InMemoryBusHost()
+    private InMemoryBusHost(
+        FakeTimeProvider timeProvider,
+        IInMemoryMessageBus messageBus,
+        TConsumer consumer,
+        string queueName)
     {
-        TimeProvider = new FakeTimeProvider();
-        QueueName = Guid.NewGuid().ToString("N");
-        
-        _services = new ServiceCollection();
-        _services
-            .AddBridgeBus()
-            .AddConsumer<TConsumer, TMessage>(QueueName)
-            .UsingInMemory(TimeProvider);
+        TimeProvider = timeProvider;
+        MessageBus = messageBus;
+        Consumer = consumer;
+        QueueName = queueName;
     }
 
-    public string QueueName { get; }
     public FakeTimeProvider TimeProvider { get; }
-    public IMessageBus MessageBus { get; private set; }
-    public TConsumer Consumer { get; private set; }
-    
-    public async Task InitializeAsync()
+    internal IInMemoryMessageBus MessageBus { get; }
+    public TConsumer Consumer { get; }
+    public string QueueName { get; }
+
+    public Task WaitForConsumer(string queueName)
     {
-        _serviceProvider = _services.BuildServiceProvider();
+        var queue = MessageBus.GetQueue(queueName);
+        queue.Close();
+
+        return queue.Waiter;
+    }
+
+    public static async Task<InMemoryBusHost<TConsumer, TMessage>> Create()
+    {
+        string queueName = Guid.NewGuid().ToString("N");
+        var timeProvider = new FakeTimeProvider();
+
+        var services = new ServiceCollection();
+
+        services
+            .AddBridgeBus()
+            .AddConsumer<TConsumer, TMessage>(queueName)
+            .UsingInMemory(timeProvider);
         
-        var hostedServices = _serviceProvider.GetServices<IHostedService>();
+        var serviceProvider = services.BuildServiceProvider();
+        
+        var hostedServices = serviceProvider.GetServices<IHostedService>();
         foreach (var service in hostedServices)
         {
             await service.StartAsync(default);
         }
         
-        MessageBus = _serviceProvider.GetRequiredService<IMessageBus>();
-        Consumer = _serviceProvider.GetRequiredService<TConsumer>();
-    }
+        var messageBus = serviceProvider.GetRequiredService<IInMemoryMessageBus>();
+        var consumer = serviceProvider.GetRequiredService<TConsumer>();
 
-    public async Task DisposeAsync()
-    {
-        var hostedServices = _serviceProvider.GetServices<IHostedService>();
-        foreach (var service in hostedServices)
-        {
-            await service.StopAsync(default);
-        }
+        return new InMemoryBusHost<TConsumer, TMessage>(timeProvider, messageBus, consumer, queueName);
     }
 }

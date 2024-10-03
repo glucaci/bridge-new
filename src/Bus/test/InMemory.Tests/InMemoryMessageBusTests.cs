@@ -3,26 +3,21 @@ using Xunit;
 
 namespace Bridge.Bus.InMemory.Tests;
 
-public class InMemoryMessageBusTests : IClassFixture<InMemoryBusHost<SuccessTestConsumer, TestMessage>>
+public class InMemoryMessageBusTests
 {
-    private readonly InMemoryBusHost<SuccessTestConsumer, TestMessage> _host;
-
-    public InMemoryMessageBusTests(InMemoryBusHost<SuccessTestConsumer, TestMessage> host)
-    {
-        _host = host;
-    }
-    
     [Fact]
     public async Task CreateTestMessage_WhenSend_ConsumerWasCalled()
     {
         // Arrange
+        var host = await InMemoryBusHost<SuccessTestConsumer, TestMessage>.Create();
         var testMessage = new TestMessage();
 
         // Act
-        await _host.MessageBus.Send(testMessage, _host.QueueName, default);
-        
+        await host.MessageBus.Send(testMessage, host.QueueName, default);
+        await host.WaitForConsumer(host.QueueName);
+
         // Assert
-        _host.Consumer.WasCalled.Should().BeTrue();
+        host.Consumer.WasCalled.Should().BeTrue();
     }
     
     [Fact]
@@ -30,13 +25,16 @@ public class InMemoryMessageBusTests : IClassFixture<InMemoryBusHost<SuccessTest
     {
         // Arrange
         var testMessage = new TestMessage();
-        var now = _host.TimeProvider.GetUtcNow();
+        var host = await InMemoryBusHost<SuccessTestConsumer, TestMessage>.Create();
+        var now = host.TimeProvider.GetUtcNow();
 
         // Act
-        await _host.MessageBus.Schedule(testMessage, _host.QueueName, now.AddHours(1), default);
+        await host.MessageBus.Schedule(testMessage, host.QueueName, now.AddHours(1), default);
         
         // Assert
-        _host.Consumer.WasCalled.Should().BeFalse();
+        var queue = host.MessageBus.GetQueue(host.QueueName);
+        queue.GetItems().Should().ContainSingle(i => i.EnqueueTime == now.AddHours(1));
+        host.Consumer.WasCalled.Should().BeFalse();
     }
     
     [Fact]
@@ -44,18 +42,20 @@ public class InMemoryMessageBusTests : IClassFixture<InMemoryBusHost<SuccessTest
     {
         // Arrange
         var testMessage = new TestMessage();
-        var now = _host.TimeProvider.GetUtcNow();
-        _host.TimeProvider.Advance(TimeSpan.FromHours(2));
+        var host = await InMemoryBusHost<SuccessTestConsumer, TestMessage>.Create();
+        var now = host.TimeProvider.GetUtcNow();
 
         // Act
-        await _host.MessageBus.Schedule(testMessage, _host.QueueName, now.AddHours(1), default);
+        await host.MessageBus.Schedule(testMessage, host.QueueName, now.AddHours(1), default);
+        host.TimeProvider.Advance(TimeSpan.FromHours(2));
+        await host.WaitForConsumer(host.QueueName);
         
         // Assert
-        _host.Consumer.WasCalled.Should().BeTrue();
+        host.Consumer.WasCalled.Should().BeTrue();
     }
 }
 
-public record TestMessage();
+public record TestMessage;
 
 public class SuccessTestConsumer : IConsumer<TestMessage>
 {
