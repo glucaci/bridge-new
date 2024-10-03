@@ -4,11 +4,9 @@ using Azure.Messaging;
 
 namespace Bridge.Bus.InMemory;
 
-internal record InMemoryMessage(DateTimeOffset EnqueueTime, CloudEvent CloudEvent);
-
 internal class InMemoryMessageBus : IInMemoryMessageBus
 {
-    private readonly ConcurrentDictionary<string, Channel<InMemoryMessage>> _queues = new();
+    private readonly ConcurrentDictionary<string, InMemoryQueue<InMemoryMessage>> _queues = new();
     private readonly TimeProvider _timeProvider;
 
     public InMemoryMessageBus(TimeProvider timeProvider)
@@ -33,13 +31,13 @@ internal class InMemoryMessageBus : IInMemoryMessageBus
         return SendMessage(message, queue, cancellationToken, enqueueTime);
     }
 
-    private ValueTask SendMessage<TMessage>(
+    private async ValueTask SendMessage<TMessage>(
         TMessage message,
         string queue,
         CancellationToken cancellationToken,
         DateTimeOffset? scheduledEnqueueTime = default)
     {
-        var channel = GetOrCreateChannel(queue);
+        var queueInstance = GetQueue(queue);
 
         DateTimeOffset enqueueTime = _timeProvider.GetUtcNow();
 
@@ -53,20 +51,13 @@ internal class InMemoryMessageBus : IInMemoryMessageBus
 
         var inMemoryMessage = new InMemoryMessage(enqueueTime, cloudEvent);
 
-        return channel.Writer.WriteAsync(inMemoryMessage, cancellationToken);
+        await queueInstance.Enqueue(inMemoryMessage, cancellationToken);
     }
 
-    private Channel<InMemoryMessage> GetOrCreateChannel(string queue)
+    public InMemoryQueue<InMemoryMessage> GetQueue(string queue)
     {
         return _queues.GetOrAdd(queue, _ =>
-            Channel.CreateBounded<InMemoryMessage>(
-                new BoundedChannelOptions(100) { FullMode = BoundedChannelFullMode.Wait }));
-    }
-
-    public Channel<InMemoryMessage> GetChannelFor(string queue)
-    {
-        return _queues.TryGetValue(queue, out var channel)
-            ? channel
-            : throw new InvalidOperationException($"Queue '{queue}' does not exist.");
+            new InMemoryQueue<InMemoryMessage>(Channel.CreateBounded<InMemoryMessage>(
+                new BoundedChannelOptions(100) { FullMode = BoundedChannelFullMode.Wait })));
     }
 }

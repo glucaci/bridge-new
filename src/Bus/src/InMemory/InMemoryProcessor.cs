@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Bridge.Bus.InMemory;
@@ -25,23 +25,26 @@ internal class InMemoryProcessor : BackgroundService
     {
         await Task.Yield();
 
-        var channel = _messageBus.GetChannelFor(_consumerConfiguration.QueueName);
+        var queue = _messageBus.GetQueue(_consumerConfiguration.QueueName);
 
         while (!stoppingToken.IsCancellationRequested)
         {
             try
             {
-                var (enqueueTime, cloudEvent) = await channel.Reader.ReadAsync(stoppingToken);
-                var now = _timeProvider.GetUtcNow();
+                while (await queue.WaitForMessages(stoppingToken))
+                {
+                    while (queue.TryPeek(out var inMemoryMessage))
+                    {
+                        var now = _timeProvider.GetUtcNow();
 
-                if (now >= enqueueTime)
-                {
-                    await _consumerConfiguration.HandleMessage(_serviceProvider, cloudEvent, stoppingToken);
-                }
-                else
-                {
-                    var inMemoryMessage = new InMemoryMessage(enqueueTime, cloudEvent);
-                    await channel.Writer.WriteAsync(inMemoryMessage, stoppingToken);
+                        if (now >= inMemoryMessage.EnqueueTime)
+                        {
+                            await _consumerConfiguration
+                                .HandleMessage(_serviceProvider, inMemoryMessage.CloudEvent, stoppingToken);
+                            
+                            _ = await queue.Dequeue(stoppingToken);
+                        }
+                    }
                 }
             }
             catch (OperationCanceledException)

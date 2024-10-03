@@ -3,7 +3,7 @@ using Bridge.Bus.InMemory;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static partial class ServiceCollectionExtensions
+public static class ServiceCollectionExtensions
 {
     public static BusBridgeBuilder UsingInMemory(this BusBridgeBuilder builder) =>
         UsingInMemory(builder, TimeProvider.System);
@@ -23,7 +23,8 @@ public static partial class ServiceCollectionExtensions
                 new InMemoryProcessor(sp, consumerConfiguration, timeProvider));
         }
 
-        builder.Services.AddSingleton<IMessageBus>(_ => new InMemoryMessageBus(timeProvider));
+        builder.Services.AddSingleton<IInMemoryMessageBus>(_ => new InMemoryMessageBus(timeProvider));
+        builder.Services.AddSingleton<IMessageBus>(sp => sp.GetRequiredService<IInMemoryMessageBus>());
 
         return builder;
     }
