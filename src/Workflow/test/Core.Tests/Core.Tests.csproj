@@ -1,22 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <AssemblyName>Bridge.Workflow.Tests</AssemblyName>
-        <RootNamespace>Bridge.Workflow.Tests</RootNamespace>
-    </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyName>Bridge.Workflow.Tests</AssemblyName>
+    <RootNamespace>Bridge.Workflow.Tests</RootNamespace>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Autofac.Extensions.DependencyInjection"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
-        <PackageReference Include="xunit"/>
-        <PackageReference Include="xunit.runner.visualstudio"/>
-        <PackageReference Include="Moq"/>
-        <PackageReference Include="FluentAssertions"/>
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="xunit"/>
+    <PackageReference Include="xunit.runner.visualstudio"/>
+    <PackageReference Include="Moq"/>
+    <PackageReference Include="FluentAssertions"/>
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\..\src\Core\Core.csproj"/>
-        <ProjectReference Include="..\..\src\Testing\Testing.csproj"/>
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Core\Core.csproj"/>
+    <ProjectReference Include="..\..\src\Testing\Testing.csproj"/>
+  </ItemGroup>
 
 </Project>
