@@ -6,7 +6,7 @@ namespace Bridge.Bus.InMemory;
 
 internal class InMemoryMessageBus : IInMemoryMessageBus
 {
-    private readonly ConcurrentDictionary<string, ItemsAwareChannel<InMemoryMessage>> _queues = new();
+    private readonly ConcurrentDictionary<string, InMemoryQueue<InMemoryMessage>> _queues = new();
     private readonly TimeProvider _timeProvider;
 
     public InMemoryMessageBus(TimeProvider timeProvider)
@@ -54,10 +54,10 @@ internal class InMemoryMessageBus : IInMemoryMessageBus
         await queueInstance.Enqueue(inMemoryMessage, cancellationToken);
     }
 
-    public ItemsAwareChannel<InMemoryMessage> GetQueue(string queue)
+    public InMemoryQueue<InMemoryMessage> GetQueue(string queue)
     {
         return _queues.GetOrAdd(queue, _ =>
-            new ItemsAwareChannel<InMemoryMessage>(Channel.CreateBounded<InMemoryMessage>(
+            new InMemoryQueue<InMemoryMessage>(Channel.CreateBounded<InMemoryMessage>(
                 new BoundedChannelOptions(100) { FullMode = BoundedChannelFullMode.Wait })));
     }
 }

@@ -3,12 +3,12 @@ using System.Threading.Channels;
 
 namespace Bridge.Bus.InMemory;
 
-internal class ItemsAwareChannel<T>
+internal class InMemoryQueue<T>
 {
     private readonly Channel<T> _inner;
     private readonly Queue<T> _items = new();
 
-    public ItemsAwareChannel(Channel<T> inner)
+    public InMemoryQueue(Channel<T> inner)
     {
         _inner = inner;
     }
