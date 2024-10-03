@@ -9,7 +9,7 @@ public class InMemoryMessageBusTests
     public async Task CreateTestMessage_WhenSend_ConsumerWasCalled()
     {
         // Arrange
-        var host = await InMemoryBusHost<SuccessTestConsumer, TestMessage>.Create();
+        var host = await InMemoryBusHost<TestConsumer, TestMessage>.Create();
         var testMessage = new TestMessage();
 
         // Act
@@ -25,7 +25,7 @@ public class InMemoryMessageBusTests
     {
         // Arrange
         var testMessage = new TestMessage();
-        var host = await InMemoryBusHost<SuccessTestConsumer, TestMessage>.Create();
+        var host = await InMemoryBusHost<TestConsumer, TestMessage>.Create();
         var now = host.TimeProvider.GetUtcNow();
 
         // Act
@@ -42,7 +42,7 @@ public class InMemoryMessageBusTests
     {
         // Arrange
         var testMessage = new TestMessage();
-        var host = await InMemoryBusHost<SuccessTestConsumer, TestMessage>.Create();
+        var host = await InMemoryBusHost<TestConsumer, TestMessage>.Create();
         var now = host.TimeProvider.GetUtcNow();
 
         // Act
@@ -53,17 +53,17 @@ public class InMemoryMessageBusTests
         // Assert
         host.Consumer.WasCalled.Should().BeTrue();
     }
-}
 
-public record TestMessage;
+    private record TestMessage;
 
-public class SuccessTestConsumer : IConsumer<TestMessage>
-{
-    internal bool WasCalled { get; private set; }
-        
-    public ValueTask Handle(TestMessage message, CancellationToken cancellationToken)
+    private class TestConsumer : IConsumer<TestMessage>
     {
-        WasCalled = true;
-        return ValueTask.CompletedTask;
+        internal bool WasCalled { get; private set; }
+        
+        public ValueTask Handle(TestMessage message, CancellationToken cancellationToken)
+        {
+            WasCalled = true;
+            return ValueTask.CompletedTask;
+        }
     }
 }
