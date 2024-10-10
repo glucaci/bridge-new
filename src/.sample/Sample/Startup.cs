@@ -1,4 +1,4 @@
-using Bridge.Bus;
+using Bridge;
 
 namespace Bridge.Sample;
 
@@ -18,8 +18,12 @@ public class Startup
         BridgeOptions options = _configuration.GetSection("Bridge").Get<BridgeOptions>()!;
 
         services
-            .AddBridgeBus()
+            .AddBridge()
             .AddConsumer<DocumentCreatedHandler, DocumentCreated>(options.QueueName)
+            .AddOutbox(o =>
+            {
+                o.UsingInMemory();
+            })
             .UsingAzureServiceBus(o =>
             {
                 o.ConnectionString = options.BusConnectionString;

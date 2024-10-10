@@ -49,7 +49,7 @@ internal class AzureServiceBusSender : IMessageBus
 
         CloudEvent cloudEvent = new CloudEvent(
             _client.Identifier, typeof(TMessage).Name, message);
-
+        
         ServiceBusMessage serviceBusMessage =
             new ServiceBusMessage(new BinaryData(cloudEvent))
             {
