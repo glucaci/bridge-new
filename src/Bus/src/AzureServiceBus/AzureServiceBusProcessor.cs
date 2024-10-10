@@ -40,10 +40,6 @@ internal class AzureServiceBusProcessor : IHostedService
 
     private async Task HandleMessage(ProcessMessageEventArgs arg)
     {
-        string contentType = arg.Message.ContentType;
-        
-        var formatter = new AmqpEventFormatter();
-        
         CloudEvent? cloudEvent = CloudEvent.Parse(arg.Message.Body);
         if (cloudEvent == null)
         {

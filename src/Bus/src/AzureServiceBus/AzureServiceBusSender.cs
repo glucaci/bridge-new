@@ -1,6 +1,5 @@
-﻿
+﻿using Azure.Messaging;
 using Azure.Messaging.ServiceBus;
-using CloudNative.CloudEvents;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Bridge.Bus.AzureServiceBus;
