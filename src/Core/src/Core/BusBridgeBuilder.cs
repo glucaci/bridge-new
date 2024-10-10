@@ -4,14 +4,14 @@ namespace Bridge;
 
 public class BusBridgeBuilder
 {
-    private readonly List<Func<IServiceProvider, ConsumerConfiguration>> _consumers = new();
+    private readonly List<ConsumerConfigurationBuilder> _consumers = new();
 
     internal BusBridgeBuilder(IServiceCollection services)
     {
         Services = services;
     }
 
-    internal IReadOnlyList<Func<IServiceProvider, ConsumerConfiguration>> Consumers => _consumers;
+    internal IReadOnlyList<ConsumerConfigurationBuilder> Consumers => _consumers;
 
     public IServiceCollection Services { get; }
 
@@ -21,8 +21,8 @@ public class BusBridgeBuilder
         where TConsumer : class, IConsumer<TMessage>
     {
         Services.AddSingleton<TConsumer>();
-
-        _consumers.Add(sp =>
+        
+        var builder = new ConsumerConfigurationBuilder(queueName, sp =>
         {
             var serializer = sp.GetRequiredService<ISerializer>();
             
@@ -33,6 +33,8 @@ public class BusBridgeBuilder
 
             return consumerConfiguration;
         });
+
+        _consumers.Add(builder);
 
         return this;
     }

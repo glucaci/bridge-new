@@ -22,7 +22,7 @@ public class Startup
             .AddConsumer<DocumentCreatedHandler, DocumentCreated>(options.QueueName)
             .AddOutbox(o =>
             {
-                o.
+                o.UsingInMemory();
             })
             .UsingAzureServiceBus(o =>
             {

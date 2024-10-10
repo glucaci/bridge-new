@@ -1,9 +1,1 @@
 ﻿#nullable enable
-Bridge.BusBridgeBuilder.AddConsumer<TConsumer, TMessage>(string! queueName, System.Action<Bridge.ConsumerConfiguration!>? configure = null) -> Bridge.BusBridgeBuilder!
-Bridge.BusBridgeBuilder.AddOutbox(System.Action<Bridge.BusBridgeOutboxBuilder!>! configure) -> Bridge.BusBridgeBuilder!
-Bridge.BusBridgeOutboxBuilder
-Bridge.BusBridgeOutboxBuilder.Services.get -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
-Bridge.OutboxState
-Bridge.OutboxState.Created = 0 -> Bridge.Bus.OutboxState
-Bridge.OutboxState.Sent = 1 -> Bridge.Bus.OutboxState
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBridge(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services) -> Bridge.BusBridgeBuilder!

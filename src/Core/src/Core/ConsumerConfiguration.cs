@@ -1,4 +1,4 @@
-﻿using CloudNative.CloudEvents;
+﻿using Azure.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bridge;
@@ -49,9 +49,4 @@ public class ConsumerConfiguration
 
         return new ConsumerConfiguration(queueName, typeof(TConsumer), typeof(TMessage), handleMessage);
     }
-}
-
-internal interface ISerializer
-{
-    TMessage Convert<TMessage>(CloudEvent cloudEvent);
 }

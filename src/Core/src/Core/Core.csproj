@@ -9,8 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Azure.Messaging.ServiceBus" />
+		<!-- TODO: Remove Azure dependency and use CloudEvents
 		<PackageReference Include="CloudNative.CloudEvents" />
-		<PackageReference Include="CloudNative.CloudEvents.SystemTextJson" />
+		<PackageReference Include="CloudNative.CloudEvents.SystemTextJson" />-->
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" />
 	</ItemGroup>

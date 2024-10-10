@@ -1,4 +1,6 @@
 ﻿#nullable enable
-Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingInMemory(this Bridge.Bus.BusBridgeBuilder builder) -> Bridge.Bus.BusBridgeBuilder
-static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingInMemory(this Bridge.Bus.BusBridgeBuilder builder, System.TimeProvider timeProvider) -> Bridge.Bus.BusBridgeBuilder
+Microsoft.Extensions.DependencyInjection.BusBridgeBuilderExtensions
+Microsoft.Extensions.DependencyInjection.BusBridgeOutboxBuilderExtensions
+static Microsoft.Extensions.DependencyInjection.BusBridgeBuilderExtensions.UsingInMemory(this Bridge.BusBridgeBuilder! builder) -> Bridge.BusBridgeBuilder!
+static Microsoft.Extensions.DependencyInjection.BusBridgeBuilderExtensions.UsingInMemory(this Bridge.BusBridgeBuilder! builder, System.TimeProvider! timeProvider) -> Bridge.BusBridgeBuilder!
+static Microsoft.Extensions.DependencyInjection.BusBridgeOutboxBuilderExtensions.UsingInMemory(this Bridge.BusBridgeOutboxBuilder! builder) -> Bridge.BusBridgeOutboxBuilder!

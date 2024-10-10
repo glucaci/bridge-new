@@ -1,4 +1,4 @@
-using CloudNative.CloudEvents;
+using Azure.Messaging;
 
 namespace Bridge.InMemory;
 
