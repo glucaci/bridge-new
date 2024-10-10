@@ -1,5 +1,6 @@
-﻿using Azure.Messaging;
+﻿
 using Azure.Messaging.ServiceBus;
+using CloudNative.CloudEvents;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Bridge.Bus.AzureServiceBus;
@@ -49,7 +50,7 @@ internal class AzureServiceBusSender : IMessageBus
 
         CloudEvent cloudEvent = new CloudEvent(
             _client.Identifier, typeof(TMessage).Name, message);
-
+        
         ServiceBusMessage serviceBusMessage =
             new ServiceBusMessage(new BinaryData(cloudEvent))
             {

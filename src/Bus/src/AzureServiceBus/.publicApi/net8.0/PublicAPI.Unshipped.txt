@@ -1,1 +1,2 @@
 ﻿#nullable enable
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.UsingAzureServiceBus(this Bridge.BusBridgeBuilder! builder, System.Action<Bridge.Bus.AzureServiceBus.AzureServiceBusOptions!>? configureOptions = null, System.Action<Azure.Messaging.ServiceBus.ServiceBusClientOptions!>? configureClient = null) -> Bridge.BusBridgeBuilder!
